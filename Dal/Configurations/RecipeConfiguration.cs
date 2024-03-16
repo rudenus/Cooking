@@ -17,6 +17,8 @@ namespace Dal.Configurations
             builder.HasNotNegativeCheckConstraint(x => x.Carbohydrates);
             builder.HasNotNegativeCheckConstraint(x => x.Fats);
             builder.HasNotNegativeCheckConstraint(x => x.Proteins);
+            builder.HasNotNegativeCheckConstraint(x => x.ServingsNumber);
+            builder.HasNotNegativeCheckConstraint(x => x.Weight);
         }
     }
 }

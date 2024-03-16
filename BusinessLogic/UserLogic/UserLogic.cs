@@ -1,4 +1,5 @@
-﻿using BusinessLogic.UserLogic.Models;
+﻿using BusinessLogic.UserLogic.Models.Create;
+using BusinessLogic.UserLogic.Models.Get;
 using Dal;
 using Dal.Entities;
 
@@ -13,7 +14,7 @@ namespace BusinessLogic.UserLogic
             this.context = context;
         }
 
-        public async Task<GetUserModel> Get(Guid userId)
+        public async Task<GetUserOutput> Get(Guid userId)
         {
             var user = context.Users
                 .Select(x => new
@@ -24,13 +25,13 @@ namespace BusinessLogic.UserLogic
                 })
                 .FirstOrDefault(x => x.UserId == userId);
 
-            return new GetUserModel()
+            return new GetUserOutput()
             {
                 Name = user.Name,
                 Role = user.Role.ToString(),
             };
         }
-        public async Task Create(CreateUserModel user)
+        public async Task Create(CreateUserInput user)
         {
             string fullname = user.Name + " " + user.Surname;
             if (!string.IsNullOrEmpty(user.Patronymic))

@@ -1,3 +1,4 @@
+using BusinessLogic.RecipeLogic;
 using BusinessLogic.UserLogic;
 using Cooking.Infrastructure.Authenticator;
 using Cooking.Infrastructure.DuplicateFinder;
@@ -42,6 +43,7 @@ builder.Services.AddDbContext<Dal.Context>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<UserLogic>();
+builder.Services.AddTransient<RecipeLogic>();
 builder.Services.AddTransient<Validator>();
 builder.Services.AddTransient<DuplicateFinder>();
 builder.Services.AddTransient<Authenticator>();

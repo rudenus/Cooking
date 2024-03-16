@@ -1,6 +1,6 @@
-﻿namespace BusinessLogic.UserLogic.Models
+﻿namespace BusinessLogic.UserLogic.Models.Create
 {
-    public class CreateUserModel
+    public class CreateUserInput
     {
         public string Email { get; set; }
 

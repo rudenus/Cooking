@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.UserLogic;
-using BusinessLogic.UserLogic.Models;
+using BusinessLogic.UserLogic.Models.Create;
 using Cooking.Dto.Account.Get;
 using Cooking.Dto.Account.Login;
 using Cooking.Dto.Account.Register;
@@ -34,7 +34,7 @@ namespace Cooking.Controllers
         public async Task<IActionResult> Register(
             RegisterForm input)
         {
-            var user = new CreateUserModel();
+            var user = new CreateUserInput();
 
             try
             {

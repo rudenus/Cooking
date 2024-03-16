@@ -7,6 +7,7 @@ import Login from './Components/Login/Login';
 import MainPage from './Components/MainPage/MainPage';
 import Register from './Components/Register/Register';
 import store from './data/Store';
+import ListRecipe from './Components/Recipe/ListRecipe/ListRecipe';
 
 function App() {
   const isAuthorized = store.getState()?.AuthorizationReducer?.isAuthorized;
@@ -27,6 +28,7 @@ function App() {
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/recipes" element={<ListRecipe />} />
                   <Route path="*" element={<MainPage />} />
                 </Routes>
               </NonAuthorizedLayout>

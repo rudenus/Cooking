@@ -1,6 +1,6 @@
-﻿namespace BusinessLogic.UserLogic.Models
+﻿namespace BusinessLogic.UserLogic.Models.Get
 {
-    public class GetUserModel
+    public class GetUserOutput
     {
         public string Name { get; set; }
 
