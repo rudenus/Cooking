@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dal", "Dal\Dal.csproj", "{9842AFE4-EA1E-4A93-A713-706225E8440D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cooking", "Cooking\Cooking.csproj", "{F6DFFC45-E603-437B-9396-A3292F8F8D08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{67B7F3D0-056A-4F4B-8C7C-AA6445FE4385}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9842AFE4-EA1E-4A93-A713-706225E8440D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9842AFE4-EA1E-4A93-A713-706225E8440D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9842AFE4-EA1E-4A93-A713-706225E8440D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9842AFE4-EA1E-4A93-A713-706225E8440D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DFFC45-E603-437B-9396-A3292F8F8D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DFFC45-E603-437B-9396-A3292F8F8D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DFFC45-E603-437B-9396-A3292F8F8D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DFFC45-E603-437B-9396-A3292F8F8D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B7F3D0-056A-4F4B-8C7C-AA6445FE4385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B7F3D0-056A-4F4B-8C7C-AA6445FE4385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B7F3D0-056A-4F4B-8C7C-AA6445FE4385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B7F3D0-056A-4F4B-8C7C-AA6445FE4385}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F09E044-30BA-407D-80F7-FE5D005F9FD7}
+	EndGlobalSection
+EndGlobal
