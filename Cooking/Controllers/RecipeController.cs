@@ -49,14 +49,14 @@ namespace Cooking.Controllers
 
             return Ok(listRecipe.Select(x => new ListResult()
             {
-                Calories = x.Calories,
-                Carbohydrates = x.Carbohydrates,
+                CaloriesPer100 = x.CaloriesPer100,
+                CarbohydratesPer100 = x.CarbohydratesPer100,
                 Description = x.Description,
-                Fats = x.Fats,
+                FatsPer100 = x.FatsPer100,
                 Products = x.Products,
                 RecipeId = x.RecipeId,
                 Name = x.Name,
-                Proteins = x.Proteins,
+                ProteinsPer100 = x.ProteinsPer100,
             }));
         }
 

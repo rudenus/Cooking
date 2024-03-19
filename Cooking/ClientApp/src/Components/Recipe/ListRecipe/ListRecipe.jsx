@@ -32,24 +32,24 @@ const ListRecipe = () => {
             key: 'name',
         },
         {
-            title: 'Каллории',
-            dataIndex: 'calories',
-            key: 'calories',
+            title: 'Каллории на 100г.',
+            dataIndex: 'caloriesPer100',
+            key: 'caloriesPer100',
         },
         {
-            title: 'Белки',
-            dataIndex: 'proteins',
-            key: 'proteins',
+            title: 'Белки на 100г.',
+            dataIndex: 'proteinsPer100',
+            key: 'proteinsPer100',
         },
         {
-            title: 'Жиры',
-            dataIndex: 'fats',
-            key: 'fats',
+            title: 'Жиры на 100г.',
+            dataIndex: 'fatsPer100',
+            key: 'fatsPer100',
         },
         {
-            title: 'Углеводы',
-            dataIndex: 'carbohydrates',
-            key: 'carbohydrates',
+            title: 'Углеводы на 100г.',
+            dataIndex: 'carbohydratesPer100',
+            key: 'carbohydratesPer100',
         },
         {
             title: 'Используемые продукты',
@@ -71,7 +71,7 @@ const ListRecipe = () => {
             <tbody>
                 <tr>
                     <td className="column-filter">
-                        <label>Каллории</label><br/>
+                        <label>Каллории на 100г.</label><br/>
                         <table>
                             <tbody>
                                 <tr>
@@ -103,7 +103,7 @@ const ListRecipe = () => {
 
                     
                     <td className="column-filter">
-                        <label>Белки</label><br/>
+                        <label>Белки на 100г.</label><br/>
                         <table>
                             <tbody>
                                 <tr>
@@ -134,7 +134,7 @@ const ListRecipe = () => {
                     </td>
 
                     <td className="column-filter">
-                        <label>Жиры</label><br/>
+                        <label>Жиры на 100г.</label><br/>
                         <table>
                             <tbody>
                                 <tr>
@@ -164,7 +164,7 @@ const ListRecipe = () => {
                     </td>
 
                     <td className="column-filter">
-                        <label>Углеводы</label><br/>
+                        <label>Углеводы на 100г.</label><br/>
                         <table>
                             <tbody>
                                 <tr>

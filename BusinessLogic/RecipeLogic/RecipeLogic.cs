@@ -17,12 +17,12 @@ namespace BusinessLogic.RecipeLogic
             var list = context.Recipes
                 .Select(x => new ListFilterModel
                 {
-                    Calories = x.Calories,
-                    Carbohydrates = x.Carbohydrates,
+                    CaloriesPer100 = x.CaloriesPer100,
+                    CarbohydratesPer100 = x.CarbohydratesPer100,
                     Description = x.Description,
-                    Fats = x.Fats,
+                    FatsPer100 = x.FatsPer100,
                     Name = x.Name,
-                    Proteins = x.Proteins,
+                    ProteinsPer100 = x.FatsPer100,
                     Weight = x.Weight,
                     RecipeId = x.RecipeId,
                     Products = x.Ingridients.Select(x => new ProductListFilterModel
@@ -39,13 +39,13 @@ namespace BusinessLogic.RecipeLogic
 
             return list.Select(x => new ListRecipeOutput()
             {
-                Calories = x.Calories,
-                Carbohydrates = x.Carbohydrates,
+                CaloriesPer100 = x.CaloriesPer100,
+                CarbohydratesPer100 = x.CarbohydratesPer100,
                 Description = x.Description,
-                Fats = x.Fats,
+                FatsPer100 = x.FatsPer100,
                 Products = string.Join(", ", x.Products.Select(x => x.ProductName)),
                 Name = x.Name,
-                Proteins = x.Proteins,
+                ProteinsPer100 = x.ProteinsPer100,
                 RecipeId = x.RecipeId,
             }).ToArray();
 
@@ -60,42 +60,42 @@ namespace BusinessLogic.RecipeLogic
 
             if (input.CaloriesMin.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight >= input.CaloriesMin.Value);
+                list = list.Where(x => x.CaloriesPer100 >= input.CaloriesMin.Value);
             }
 
             if (input.CaloriesMax.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight <= input.CaloriesMax.Value);
+                list = list.Where(x => x.CaloriesPer100 <= input.CaloriesMax.Value);
             }
 
             if (input.CarbohydratesMin.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight >= input.CarbohydratesMin.Value);
+                list = list.Where(x => x.CarbohydratesPer100 >= input.CarbohydratesMin.Value);
             }
 
             if (input.CarbohydratesMax.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight <= input.CarbohydratesMax.Value);
+                list = list.Where(x => x.CarbohydratesPer100 <= input.CarbohydratesMax.Value);
             }
 
             if (input.FatsMin.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight >= input.FatsMin.Value);
+                list = list.Where(x => x.FatsPer100 >= input.FatsMin.Value);
             }
 
             if (input.FatsMax.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight <= input.CaloriesMax.Value);
+                list = list.Where(x => x.FatsPer100 <= input.FatsMax.Value);
             }
 
             if (input.ProteinsMin.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight >= input.ProteinsMin.Value);
+                list = list.Where(x => x.ProteinsPer100 >= input.ProteinsMin.Value);
             }
 
             if (input.ProteinsMax.HasValue)
             {
-                list = list.Where(x => x.Calories * 100 / x.Weight <= input.ProteinsMax.Value);
+                list = list.Where(x => x.ProteinsPer100 <= input.ProteinsMax.Value);
             }
 
             return list;
