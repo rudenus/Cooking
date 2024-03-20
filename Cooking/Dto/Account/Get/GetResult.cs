@@ -1,6 +1,6 @@
 ﻿namespace Cooking.Dto.Account.Get
 {
-    public class GetResult
+    internal class GetResult
     {
         public string Name { get; set; }
 

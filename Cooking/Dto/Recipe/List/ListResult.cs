@@ -1,6 +1,6 @@
 ﻿namespace Cooking.Dto.Recipe.List
 {
-    public class ListResult
+    internal class ListResult
     {
         public int CaloriesPer100 { get; set; }
 

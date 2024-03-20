@@ -17,7 +17,8 @@ namespace Cooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(
+            [FromBody, BindRequired] input)
         {
             return View();
         }

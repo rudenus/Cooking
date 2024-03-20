@@ -1,6 +1,6 @@
 ﻿namespace Cooking.Dto.Account.Register
 {
-    public class RegisterForm
+    internal class RegisterForm
     {
         public string Login { get; set; }
 
