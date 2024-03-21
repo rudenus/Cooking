@@ -1,6 +1,6 @@
-﻿namespace BusinessLogic.RecipeLogic.List
+﻿namespace BusinessLogic.RecipeLogic.Models.List
 {
-    internal class ListFilterModel
+    internal class ListRecipeFilterModel
     {
         public int CaloriesPer100 { get; set; }
 

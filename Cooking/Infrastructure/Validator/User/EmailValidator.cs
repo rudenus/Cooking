@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Cooking.Infrastructure.Validator
+namespace Cooking.Infrastructure.Validator.User
 {
-    public class EmailValidator
+    internal class EmailValidator
     {
         private static readonly Regex EmailPattern = new Regex(
                 pattern: @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
@@ -12,7 +12,7 @@ namespace Cooking.Infrastructure.Validator
         {
             email = null;
 
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 return false;
             }

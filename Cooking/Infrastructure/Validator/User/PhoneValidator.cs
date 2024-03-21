@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Cooking.Infrastructure.Validator
+namespace Cooking.Infrastructure.Validator.User
 {
-    public class PhoneValidator
+    internal class PhoneValidator
     {
         private static readonly Regex PhonePattern = new Regex(
                 @"^(?:(?:8?(?<Case1>\d{10}))|(?<Case2>\d{11}))",
@@ -20,7 +20,7 @@ namespace Cooking.Infrastructure.Validator
             var phoneDraft = string.Join(string.Empty, value.Where(char.IsLetterOrDigit));
             var matches = PhonePattern.Matches(phoneDraft);
 
-            if(matches.Count() != 1)
+            if (matches.Count() != 1)
             {
                 return false;
             }
@@ -29,7 +29,7 @@ namespace Cooking.Infrastructure.Validator
 
             var case1 = match.Result("${Case1}");
 
-            if(!string.IsNullOrEmpty(case1))
+            if (!string.IsNullOrEmpty(case1))
             {
                 phone = $"7{case1}";
                 return true;

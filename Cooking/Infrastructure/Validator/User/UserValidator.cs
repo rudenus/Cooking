@@ -1,6 +1,6 @@
-﻿namespace Cooking.Infrastructure.Validator
+﻿namespace Cooking.Infrastructure.Validator.User
 {
-    public class Validator
+    public class UserValidator
     {
         public UserValidatorModel Validate(UserValidatorModel user)
         {
@@ -16,7 +16,7 @@
 
             if (string.IsNullOrEmpty(user.Surname))
             {
-                throw new ArgumentException("Фамилия пользователя не может быть пустым");
+                throw new ArgumentException("Фамилия пользователя не может быть пустой");
             }
 
             if (!PasswordValidator.TryParse(user.Password, out var password))

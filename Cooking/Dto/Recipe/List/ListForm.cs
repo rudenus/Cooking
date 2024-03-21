@@ -1,6 +1,6 @@
 ﻿namespace Cooking.Dto.Recipe.List
 {
-    internal class ListForm
+    public class ListForm
     {
         public IEnumerable<Guid> Products { get; set; } = new List<Guid>();
 

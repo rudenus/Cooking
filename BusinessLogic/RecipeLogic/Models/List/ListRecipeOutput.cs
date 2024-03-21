@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.RecipeLogic.List
+namespace BusinessLogic.RecipeLogic.Models.List
 {
     public class ListRecipeOutput
     {

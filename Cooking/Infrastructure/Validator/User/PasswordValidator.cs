@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Cooking.Infrastructure.Validator
+namespace Cooking.Infrastructure.Validator.User
 {
-    public class PasswordValidator
+    internal class PasswordValidator
     {
         private static readonly Regex PasswordPattern = new Regex(
                 pattern: @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,10}$",

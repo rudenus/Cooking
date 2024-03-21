@@ -1,6 +1,6 @@
 ﻿namespace Cooking.Infrastructure.DuplicateFinder
 {
-    public class UserDuplicateFinderModel
+    public class DuplicateFinderUserModel
     {
         public string Login { get; set; }
 

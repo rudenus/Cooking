@@ -1,9 +1,13 @@
-﻿namespace Cooking.Dto.Account.Login
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Cooking.Dto.Account.Login
 {
-    internal class LoginForm
+    public class LoginForm
     {
+        [Required]
         public string Login { get; set; }
 
+        [Required]
         public string Password { get; set; }
     }
 }

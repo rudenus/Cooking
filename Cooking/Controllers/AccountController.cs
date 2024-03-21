@@ -6,7 +6,7 @@ using Cooking.Dto.Account.Register;
 using Cooking.Infrastructure;
 using Cooking.Infrastructure.Authenticator;
 using Cooking.Infrastructure.DuplicateFinder;
-using Cooking.Infrastructure.Validator;
+using Cooking.Infrastructure.Validator.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -21,8 +21,8 @@ namespace Cooking.Controllers
         private readonly Authenticator authenticator;
         private readonly DuplicateFinder duplicateFinder;
         private readonly UserLogic userLogic;
-        private readonly Validator validator;
-        public AccountController(Authenticator authenticator, DuplicateFinder duplicateFinder,UserLogic userLogic, Validator validator)
+        private readonly UserValidator validator;
+        public AccountController(Authenticator authenticator, DuplicateFinder duplicateFinder,UserLogic userLogic, UserValidator validator)
         {
             this.authenticator = authenticator;
             this.duplicateFinder = duplicateFinder;
@@ -63,7 +63,7 @@ namespace Cooking.Controllers
 
             try
             {
-                await duplicateFinder.FindDuplicates(new UserDuplicateFinderModel()
+                await duplicateFinder.FindDuplicates(new DuplicateFinderUserModel()
                 {
                     Email = user.Email,
                     Login = user.Login,

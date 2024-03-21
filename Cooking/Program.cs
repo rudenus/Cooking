@@ -2,7 +2,8 @@ using BusinessLogic.RecipeLogic;
 using BusinessLogic.UserLogic;
 using Cooking.Infrastructure.Authenticator;
 using Cooking.Infrastructure.DuplicateFinder;
-using Cooking.Infrastructure.Validator;
+using Cooking.Infrastructure.Validator.Recipe;
+using Cooking.Infrastructure.Validator.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -44,7 +45,8 @@ builder.Services.AddDbContext<Dal.Context>(options =>
 
 builder.Services.AddTransient<UserLogic>();
 builder.Services.AddTransient<RecipeLogic>();
-builder.Services.AddTransient<Validator>();
+builder.Services.AddTransient<UserValidator>();
+builder.Services.AddTransient<RecipeValidator>();
 builder.Services.AddTransient<DuplicateFinder>();
 builder.Services.AddTransient<Authenticator>();
 

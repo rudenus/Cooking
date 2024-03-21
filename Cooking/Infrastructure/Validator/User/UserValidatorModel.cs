@@ -1,4 +1,4 @@
-﻿namespace Cooking.Infrastructure.Validator
+﻿namespace Cooking.Infrastructure.Validator.User
 {
     public class UserValidatorModel
     {

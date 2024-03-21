@@ -1,8 +1,8 @@
-﻿namespace BusinessLogic.RecipeLogic.List
+﻿namespace BusinessLogic.RecipeLogic.Models.List
 {
     public class ListRecipeInput
     {
-        public IEnumerable<Guid> Products { get; set; } = new List<Guid>();
+        public IEnumerable<Guid> Products { get; set; }
 
         public int? CaloriesMin { get; set; }
 

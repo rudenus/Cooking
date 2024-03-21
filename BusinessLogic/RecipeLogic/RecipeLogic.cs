@@ -1,21 +1,47 @@
-﻿using BusinessLogic.RecipeLogic.List;
+﻿using BusinessLogic.RecipeLogic.Models.Create;
+using BusinessLogic.RecipeLogic.Models.List;
 using Dal;
+using Dal.Entities;
+using Dal.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.RecipeLogic
 {
     public class RecipeLogic
     {
+        private const int averageServingSize = 375;
+
+        private const string recipeFileName = "Приложение к рецепту";
+
+        private const string operationFileName = "Приложение к шагу рецепта рецепту";
+
         private readonly Context context;
         public RecipeLogic(Context context)
         {
             this.context = context;
         }
 
+        public async Task Create(CreateRecipeInput input)
+        {
+            Guid recipeId = Guid.NewGuid();
+            
+            var recipe = GetRecipe(input, recipeId);
+
+            context.Add(recipe);
+
+            var listIngridients = GetIngridients(input.Ingridients, recipeId);
+            context.AddRange(listIngridients);
+
+            var listOperations = GetOperations(input.Operations, recipeId);
+            context.AddRange(listOperations);
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<ListRecipeOutput[]> List(ListRecipeInput input)
         {
             var list = context.Recipes
-                .Select(x => new ListFilterModel
+                .Select(x => new ListRecipeFilterModel
                 {
                     CaloriesPer100 = x.CaloriesPer100,
                     CarbohydratesPer100 = x.CarbohydratesPer100,
@@ -51,7 +77,7 @@ namespace BusinessLogic.RecipeLogic
 
         }
 
-        private IQueryable<ListFilterModel> FilterList(IQueryable<ListFilterModel> list, ListRecipeInput input)
+        private IQueryable<ListRecipeFilterModel> FilterList(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
         {
             if (input.Products.Any())
             {
@@ -99,6 +125,136 @@ namespace BusinessLogic.RecipeLogic
             }
 
             return list;
+        }
+
+        private async Task<Recipe> GetRecipe(CreateRecipeInput input, Guid recipeId)
+        {
+            Recipe recipe = new Recipe()
+            {
+                Description = input.Description,
+                File = input.File != null ? new Dal.Entities.File()
+                {
+                    Content = input.File,
+                    FileId = Guid.NewGuid(),
+                    Name = recipeFileName,
+                    Type = Dal.Enums.FileType.Photo,
+                } : null,
+                IsModerated = false,
+                Name = input.Name,
+                RecipeId = recipeId,
+                UserId = input.UserId,
+            };
+
+            if (input.Weight.HasValue)
+            {
+                recipe.Weight = input.Weight.Value;
+
+                if (input.ServingsNumber.HasValue)
+                {
+                    recipe.ServingsNumber = input.ServingsNumber.Value;
+                }
+
+                else
+                {
+                    recipe.ServingsNumber = recipe.Weight / averageServingSize;
+                }
+            }
+
+            else
+            {
+                recipe.Weight = input.Ingridients.Sum(x => x.Weight);
+
+                if (input.ServingsNumber.HasValue)
+                {
+                    recipe.ServingsNumber = input.ServingsNumber.Value;
+                }
+
+                else
+                {
+                    recipe.ServingsNumber = recipe.Weight / averageServingSize;
+                }
+            }
+
+            var listAllProducts = await GetAllProducts(input.Ingridients);
+
+            recipe.Calories = listAllProducts.Sum(x => x.Calories);
+            recipe.Carbohydrates = listAllProducts.Sum(x => x.Carbohydrates);
+            recipe.Fats = listAllProducts.Sum(x => x.Fats);
+            recipe.Proteins = listAllProducts.Sum(x => x.Proteins);
+
+            return recipe;
+        }
+
+        private async Task<List<CreateRecipeInputProduct>> GetAllProducts(IEnumerable<CreateRecipeInputIngridient> ingridients)
+        {
+            var listAllProducts = await context.Products
+                .Where(x => ingridients.Select(x => x.ExistingProductId).Distinct().Contains(x.ProductId))
+                .Select(x => new CreateRecipeInputProduct()
+                {
+                    Calories = x.Calories,
+                    Carbohydrates = x.Carbohydrates,
+                    Fats = x.Fats,
+                    Proteins = x.Proteins,
+                })
+                .ToListAsync();
+
+            listAllProducts.AddRange(ingridients.Select(x => x.NewProduct));
+
+            return listAllProducts;
+        }
+
+        private List<Ingridient> GetIngridients(IEnumerable<CreateRecipeInputIngridient> ingridients, Guid recipeId)
+        {
+            var listIngridients = new List<Ingridient>(ingridients.Count());
+
+            listIngridients.AddRange(ingridients.Where(x => x.ExistingProductId.HasValue).Select(x => new Ingridient()
+            {
+                IngridientId = Guid.NewGuid(),
+                ProductId = x.ExistingProductId!.Value,
+                RecipeId = recipeId,
+            }));
+
+            foreach (var ingridient in ingridients.Where(x => x.NewProduct != null))
+            {
+                Guid productId = Guid.NewGuid();
+                listIngridients.Add(new Ingridient()
+                {
+                    IngridientId = Guid.NewGuid(),
+                    RecipeId = recipeId,
+                    Weight = ingridient.Weight,
+                    Product = new Product()
+                    {
+                        ProductId = Guid.NewGuid(),
+                        Calories = ingridient.NewProduct.Calories,
+                        Carbohydrates = ingridient.NewProduct.Carbohydrates,
+                        Fats = ingridient.NewProduct.Fats,
+                        IsModerated = false,
+                        Name = ingridient.NewProduct.Name,
+                        Proteins = ingridient.NewProduct.Proteins,
+                    }
+                });
+            }
+
+            return listIngridients;
+        }
+
+        public List<Operation> GetOperations(IEnumerable<CreateRecipeInputOperation> operations, Guid recipeId)
+        {
+            return operations.Select(x => new Operation()
+            {
+                Description = x.Description,
+                File = new Dal.Entities.File()
+                {
+                    Content = x.File,
+                    FileId = Guid.NewGuid(),
+                    Name = operationFileName,
+                    Type = Dal.Enums.FileType.Photo,
+                },
+                RecipeId = recipeId,
+                Step = x.Step,
+                TimeInSeconds = x.TimeInSeconds,
+                Title = x.Title,
+            }).ToList();
         }
     }
 }

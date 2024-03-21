@@ -11,7 +11,7 @@ namespace Cooking.Infrastructure.DuplicateFinder
             this.context = context;
         }
 
-        public async Task FindDuplicates(UserDuplicateFinderModel user)
+        public async Task FindDuplicates(DuplicateFinderUserModel user)
         {
             var userByLogin = await context.Users
                 .AsNoTracking()
