@@ -10,7 +10,7 @@ namespace Dal.Configurations
         {
             builder.ToTable("Likes");
 
-            builder.HasKey(x => x.LikeId);
+            builder.HasKey(x => new { x.PublicationId, x.UserId });
         }
     }
 }

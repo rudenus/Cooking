@@ -10,8 +10,6 @@ namespace Dal.Entities
 
         public string FullName { get; set; }
 
-        public bool IsBanned { get; set; }
-
         public string Login { get; set; }
 
         public string Name { get; set; }

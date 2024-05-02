@@ -41,8 +41,6 @@
         public string Description { get; set; }
 
         public int TimeInSeconds { get; set; }
-
-        public string Title { get; set; }
     }
 
     public class CreateRecipeInputIngridient

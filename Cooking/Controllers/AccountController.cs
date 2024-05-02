@@ -81,7 +81,7 @@ namespace Cooking.Controllers
             return Ok();
         }
 
-        [HttpGet("token")]
+        [HttpPost("token")]
         public async Task<IActionResult> Token(
             [FromBody, BindRequired] LoginForm input)
         {

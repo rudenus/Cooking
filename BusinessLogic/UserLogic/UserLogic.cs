@@ -44,7 +44,6 @@ namespace BusinessLogic.UserLogic
                 UserId = Guid.NewGuid(),
                 Email = user.Email,
                 FullName = fullname,
-                IsBanned = false,
                 Login = user.Login,
                 Name = user.Name,
                 PasswordHash = MD5Hash(user.Password),

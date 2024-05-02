@@ -4,6 +4,7 @@ using BusinessLogic.RecipeLogic.Models.List;
 using Cooking.Dto.Recipe.Create;
 using Cooking.Dto.Recipe.List;
 using Cooking.Infrastructure;
+using Cooking.Infrastructure.LinqExtensions;
 using Cooking.Infrastructure.Validator.Recipe;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -25,7 +26,7 @@ namespace Cooking.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(
-            [FromBody, BindRequired] CreateForm input)
+            [FromForm, BindRequired] CreateForm input)
         {
             Guid userId;
             try
@@ -42,13 +43,11 @@ namespace Cooking.Controllers
             {
                 Description = input.Description,
                 Name = input.Name,
-                File = input.File,
+                //File = input.File != null ? await getBytes(input.File) : null,
                 ServingsNumber = input.ServingsNumber,
                 UserId = userId,
                 Weight = input.Weight,
             };
-
-            
 
             try
             {
@@ -60,40 +59,40 @@ namespace Cooking.Controllers
                         NewProduct = x.NewProduct != null ? new ValidatorRecipeInputProduct()
                         {
                             Calories = x.NewProduct.Calories,
-                            Carbohydrates = x.NewProduct.Calories,
+                            Carbohydrates = x.NewProduct.Carbohydrates,
                             Fats = x.NewProduct.Fats,
                             Proteins = x.NewProduct.Proteins
                         } : null,
-                        Weight = x.Weight
+                        Weight = x.Weight//to do провалидировать 0
                     }),
 
                     Operations = input.Operations.Select(x => new ValidatorRecipeInputOperation()
                     {
                         Step = x.Step,
-                        TimeInSeconds = x.TimeInSeconds,
+                        //TimeInSeconds = x.TimeInSeconds,
                     })
                 });
 
-                recipe.Operations = validRecipe.Operations.Zip(input.Operations).Select(x => new CreateRecipeInputOperation()
+                recipe.Operations = await validRecipe.Operations.Zip(input.Operations).SelectAsync(async (x) => new CreateRecipeInputOperation()
                 {
                     Description = x.Second.Description,
-                    File = x.Second.File,
+                    File = x.Second.File != null ? await getBytes(x.Second.File) : null,
                     Step = x.First.Step,
                     TimeInSeconds = x.First.TimeInSeconds,
-                    Title = x.Second.Title,
                 });
 
                 recipe.Ingridients = validRecipe.Ingridients.Zip(input.Ingridients).Select(x => new CreateRecipeInputIngridient()
                 {
                     ExistingProductId = x.First.ExistingProductId,
-                    NewProduct = new CreateRecipeInputProduct()
+                    NewProduct = !x.First.ExistingProductId.HasValue ? new CreateRecipeInputProduct()
                     {
                         Calories = x.First.NewProduct.Calories,
                         Carbohydrates = x.First.NewProduct.Carbohydrates,
                         Fats = x.First.NewProduct.Fats,
                         Name = x.Second.NewProduct.Name,
                         Proteins = x.First.NewProduct.Proteins,
-                    }
+                    } : null,
+                    Weight = x.Second.Weight,
                 });
             }
 
@@ -149,6 +148,19 @@ namespace Cooking.Controllers
         public async Task<IActionResult> Update()
         {
             return View();
+        }
+
+        [HttpDelete("{recipeId:guid}")]
+        public async Task<IActionResult> Delete()
+        {
+            return View();
+        }
+
+        private static async Task<byte[]> getBytes(IFormFile formFile)
+        {
+            await using var memoryStream = new MemoryStream();
+            await formFile.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
         }
     }
 }

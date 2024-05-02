@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Cooking.Dto.Recipe.Create
 {
@@ -7,7 +9,7 @@ namespace Cooking.Dto.Recipe.Create
         [Required]
         public string Description { get; set; }
 
-        public byte[]? File {  get; set; }
+        //public IFormFile? File {  get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -43,26 +45,26 @@ namespace Cooking.Dto.Recipe.Create
     {
         [Required]
         public int Step { get; set; }
-        
-        public byte[]? File { get; set; }
+
+        public IFormFile File { get; set; }
 
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        public int TimeInSeconds { get; set; }
-
-        [Required]
-        public string Title { get; set; }
     }
 
     public class CreateFormIngridient
     {
-        public CreateFormProduct NewProduct { get; set; }
+        public CreateFormProduct? NewProduct { get; set; }
 
         public Guid? ExistingProductId { get; set; }
 
         [Required]
         public int Weight { get; set; }
+    }
+
+    public class FormFileWrapper
+    {
+        public IFormFile? File { get; set; }
     }
 }

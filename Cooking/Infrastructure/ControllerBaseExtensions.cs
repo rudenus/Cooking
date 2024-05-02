@@ -6,8 +6,11 @@ namespace Cooking.Infrastructure
 {
     public static class ControllerBaseExtensions
     {
+        //не нравится, надо вырезать
         public static Guid GetUserId(this ControllerBase controller)
         {
+            return new Guid("9d6f89b7-48ae-4bdb-b686-7abf02ef548e");//пока заглушка для простоты
+
             var value = controller.User.Claims.FirstOrDefault(x => x.Type == ClaimsIdentity.DefaultNameClaimType);
             if (value == null)
             {

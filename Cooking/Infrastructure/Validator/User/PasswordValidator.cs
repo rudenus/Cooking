@@ -8,7 +8,7 @@ namespace Cooking.Infrastructure.Validator.User
                 pattern: @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,10}$",
                 options: RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
 
-        public static bool TryParse(string value, out string password)
+        public bool TryParse(string value, out string password)
         {
             password = null;
 

@@ -23,8 +23,8 @@ export function logout(data) {
 
 export function login(data) {
     return (dispatch) => {
-        return api.get("/account/token", data, {withCredentials: false}).then(res => {
-            const token = res.data.access_token;
+        return api.post("/account/token", data, {withCredentials: false}).then(res => {
+            const token = res.data;
 
             localStorage.setItem('jwtToken', token);
 

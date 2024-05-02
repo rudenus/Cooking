@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="User">
+    <Position X="1.115" Y="0.5" Height="0.458" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Product">
+    <Position X="3.167" Y="0.5" Height="0.458" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Publication">
+    <Position X="4.969" Y="0.5" Height="0.458" Width="1.085" />
+  </Comment>
+  <Comment CommentText="RecomandationSystem">
+    <Position X="6.583" Y="0.5" Height="0.458" Width="1.825" />
+  </Comment>
+  <Comment CommentText="Recipe">
+    <Position X="9.063" Y="0.5" Height="0.458" Width="0.783" />
+  </Comment>
+  <Comment CommentText="Data Access Objects">
+    <Position X="12.677" Y="0.75" Height="0.458" Width="1.533" />
+  </Comment>
+  <Class Name="BusinessLogic.ProductLogic.Models.List.ListProductOutput" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAAAAAAAAAAAABQAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>ProductLogic\Models\List\ListProductOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.ProductLogic.ProductLogic">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ProductLogic\ProductLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.PublicationLogic.PublicationLogic">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABwAAAAIAAAAAABAAAAAAAQAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>PublicationLogic\PublicationLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.PublicationLogic.RecommandationSystem">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>PublicationLogic\RecommandationSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInput" Collapsed="true">
+    <Position X="13.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAgAAAAAAAAAAwAACAEAAEAAAAAAIAAAAA=</HashCode>
+      <FileName>RecipeLogic\Models\Create\CreateRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputProduct" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAABQAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>RecipeLogic\Models\Create\CreateRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputOperation" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAAAEAACAIAAAAAAAAAA=</HashCode>
+      <FileName>RecipeLogic\Models\Create\CreateRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputIngridient" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAACAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RecipeLogic\Models\Create\CreateRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ListRecipeFilterModel" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAACABQAgCAAAAAAAAgACAAAAAQ=</HashCode>
+      <FileName>RecipeLogic\Models\List\ListRecipeFilterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ProductListFilterModel" Collapsed="true">
+    <Position X="11.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>RecipeLogic\Models\List\ListRecipeFilterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ListRecipeInput" Collapsed="true">
+    <Position X="12.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAIAAAAAAAAAAACAAAAIAAAAAAIAAACEAQAABQ=</HashCode>
+      <FileName>RecipeLogic\Models\List\ListRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ListRecipeOutput" Collapsed="true">
+    <Position X="14.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAACABQAgAAAAAAAAAgACAAAAAQ=</HashCode>
+      <FileName>RecipeLogic\Models\List\ListRecipeOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Filtrator">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RecipeLogic\Filtrator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.RecipeLogic">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAQAEBAIIEAAAAAAAMAAEAAAAAACAAAAEI=</HashCode>
+      <FileName>RecipeLogic\RecipeLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.Models.Create.CreateUserInput" Collapsed="true">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAAAAAAAAQABAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>UserLogic\Models\Create\CreateUserInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.Models.Get.GetUserOutput" Collapsed="true">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserLogic\Models\Get\GetUserOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.UserLogic">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABBAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserLogic\UserLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

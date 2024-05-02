@@ -1,3 +1,4 @@
+using BusinessLogic.ProductLogic;
 using BusinessLogic.RecipeLogic;
 using BusinessLogic.UserLogic;
 using Cooking.Infrastructure.Authenticator;
@@ -45,6 +46,7 @@ builder.Services.AddDbContext<Dal.Context>(options =>
 
 builder.Services.AddTransient<UserLogic>();
 builder.Services.AddTransient<RecipeLogic>();
+builder.Services.AddTransient<ProductLogic>();
 builder.Services.AddTransient<UserValidator>();
 builder.Services.AddTransient<RecipeValidator>();
 builder.Services.AddTransient<DuplicateFinder>();

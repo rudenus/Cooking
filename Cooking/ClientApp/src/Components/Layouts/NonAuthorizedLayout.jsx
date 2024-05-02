@@ -12,10 +12,6 @@ const NonAuthorizedLayout = ({ children }) => {
                     theme="dark"
                     mode="horizontal"
                 >
-                    <Menu.Item key="2">
-                        <span>О приложении</span>
-                        <Link to="/about" />
-                    </Menu.Item>
                     <Menu.Item key="3">
                         <span>Авторизация</span>
                         <Link to="/login" />
@@ -33,7 +29,7 @@ const NonAuthorizedLayout = ({ children }) => {
             <Content className="site-layout" style={{ padding: '0 50px' }}>
                 {children}
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Санаторий Итиль</Footer>
+            <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>
     );
 }

@@ -8,7 +8,7 @@ namespace Cooking.Infrastructure.Validator.User
                 @"^(?:(?:8?(?<Case1>\d{10}))|(?<Case2>\d{11}))",
                 RegexOptions.Compiled);
 
-        public static bool TryParse(string value, out string phone)
+        public bool TryParse(string value, out string phone)
         {
             phone = null;
 

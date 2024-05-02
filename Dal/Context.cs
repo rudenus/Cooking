@@ -36,6 +36,8 @@ namespace Dal
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ReplacementProduct> ReplacementProducts { get; set; }
+
         public DbSet<Publication> Publications { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }

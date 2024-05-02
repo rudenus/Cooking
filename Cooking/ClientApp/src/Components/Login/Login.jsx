@@ -16,17 +16,17 @@ const Login
         return (
             <div style={{ width: 500, margin: "auto" }}>
                 <Input onChange={(e) => { setUserName(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Username"
+                    style={{ marginTop: "75px" }}
+                    placeholder="Логин"
                     suffix={
-                        <Tooltip title="Enter your username">
+                        <Tooltip title="Введите логин">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
                 />
-                <Input.Password onChange={(e) => { setPassword(e.target.value) }} placeholder="Input password" style={{ marginTop: "5px" }} />
+                <Input.Password onChange={(e) => { setPassword(e.target.value) }} placeholder="Введите пароль" style={{ marginTop: "15px" }} />
 
-                <Button type="primary" block onClick={() => { login({ login : userName, password }).then((res) => navigate("/register")).catch((error) => { setErrorMessage(error.response.data) }) }} style={{ marginTop: "5px" }}>
+                <Button type="primary" block onClick={() => { login({ login : userName, password : password }).then((res) => navigate("/recipes")).catch((error) => { setErrorMessage(error.response.data) }) }} style={{ marginTop: "15px" }}>
                     ВОЙТИ
                 </Button>
                 <Button type="primary" block style={{ marginTop: "5px" }} onClick={() => navigate("/register")}>

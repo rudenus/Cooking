@@ -35,12 +35,8 @@ namespace Dal.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("PublicationId")
+                    b.Property<Guid>("PublicationId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -109,19 +105,13 @@ namespace Dal.Migrations
 
             modelBuilder.Entity("Dal.Entities.Like", b =>
                 {
-                    b.Property<Guid>("LikeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("PublicationId")
+                    b.Property<Guid>("PublicationId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("LikeId");
-
-                    b.HasIndex("PublicationId");
+                    b.HasKey("PublicationId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -145,10 +135,6 @@ namespace Dal.Migrations
 
                     b.Property<int>("TimeInSeconds")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("RecipeId", "Step");
 
@@ -232,7 +218,7 @@ namespace Dal.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("PublicationId");
@@ -334,6 +320,28 @@ namespace Dal.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Dal.Entities.ReplacementProduct", b =>
+                {
+                    b.Property<Guid>("ReplacingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReplacementId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ReplacementLevel")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ReplacingId", "ReplacementId");
+
+                    b.HasIndex("ReplacementId");
+
+                    b.ToTable("ReplacementProducts", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_ReplacementProducts_ReplacementLevel_Has_Allowed_Values", "\"ReplacementLevel\" in ('Low','Medium','Hard')");
+                        });
+                });
+
             modelBuilder.Entity("Dal.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -347,9 +355,6 @@ namespace Dal.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsBanned")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -399,15 +404,19 @@ namespace Dal.Migrations
 
             modelBuilder.Entity("Dal.Entities.Comment", b =>
                 {
-                    b.HasOne("Dal.Entities.Publication", null)
+                    b.HasOne("Dal.Entities.Publication", "Publication")
                         .WithMany("Comments")
-                        .HasForeignKey("PublicationId");
+                        .HasForeignKey("PublicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dal.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Publication");
 
                     b.Navigation("User");
                 });
@@ -433,15 +442,19 @@ namespace Dal.Migrations
 
             modelBuilder.Entity("Dal.Entities.Like", b =>
                 {
-                    b.HasOne("Dal.Entities.Publication", null)
+                    b.HasOne("Dal.Entities.Publication", "Publication")
                         .WithMany("Likes")
-                        .HasForeignKey("PublicationId");
+                        .HasForeignKey("PublicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dal.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Publication");
 
                     b.Navigation("User");
                 });
@@ -475,13 +488,17 @@ namespace Dal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dal.Entities.User", null)
+                    b.HasOne("Dal.Entities.User", "User")
                         .WithMany("Publications")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("File");
 
                     b.Navigation("Recipe");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Dal.Entities.Recipe", b =>
@@ -499,6 +516,25 @@ namespace Dal.Migrations
                     b.Navigation("File");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Dal.Entities.ReplacementProduct", b =>
+                {
+                    b.HasOne("Dal.Entities.Product", "Replacement")
+                        .WithMany()
+                        .HasForeignKey("ReplacementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dal.Entities.Product", "Replacing")
+                        .WithMany()
+                        .HasForeignKey("ReplacingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Replacement");
+
+                    b.Navigation("Replacing");
                 });
 
             modelBuilder.Entity("Dal.Entities.Publication", b =>

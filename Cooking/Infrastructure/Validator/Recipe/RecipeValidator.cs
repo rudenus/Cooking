@@ -1,10 +1,12 @@
-﻿namespace Cooking.Infrastructure.Validator.Recipe
+﻿using Dal.Migrations;
+
+namespace Cooking.Infrastructure.Validator.Recipe
 {
     public class RecipeValidator
     {
         public ValidatorRecipeOutput Validate(ValidatorRecipeInput input)
         {
-            if (input.Ingridients == null || input.Ingridients.Any())
+            if (input.Ingridients == null || !input.Ingridients.Any())
             {
                 throw new ArgumentException("Список ингридиентов не может быть пустым");
             }
@@ -42,16 +44,12 @@
                 }
             }
 
-            var incorrectOperation = input.Operations.FirstOrDefault(x => x.TimeInSeconds < 0);
-
-            if(incorrectOperation != null)
+            if(input.Operations.Any(x => x.TimeInSeconds < 0))
             {
-                throw new ArgumentException("Время одного шага не может быть отрицательным");
+                throw new ArgumentException("Время шага не может быть отрицательным");
             }
 
-            if(input.Operations.Count() != input.Operations.Max(x => x.Step) - input.Operations.Min(x => x.Step)//если разница равна количеству
-                || input.Operations.Count() != input.Operations.DistinctBy(x => x.Step).Count()
-                || input.Operations.Any(x => x.Step == 0))//если каждый шаг уникален
+            if(!isOperationsStepsValid(input.Operations.Select(x => x.Step)))//если каждый шаг уникален
             {
                 throw new ArgumentException("Последовательность шагов должна начинаться с нуля и всегда увеличиваться на единицу");
             }
@@ -77,6 +75,23 @@
                     TimeInSeconds = x.TimeInSeconds,
                 })
             };
+        }
+
+        //Шаги начинаться с 1 и увеличиваться на 1
+        private bool isOperationsStepsValid(IEnumerable<int> steps)
+        {
+            int lastStep = 0;
+            foreach(int step in steps.Order())
+            {
+                if(step - lastStep != 1)
+                {
+                    return false;
+                }
+
+                lastStep = step;
+            }
+
+            return true;
         }
     }
 }

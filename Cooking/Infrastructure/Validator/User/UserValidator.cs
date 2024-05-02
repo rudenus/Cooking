@@ -2,6 +2,16 @@
 {
     public class UserValidator
     {
+        private readonly PasswordValidator passwordValidator;
+        private readonly EmailValidator emailValidator;
+        private readonly PhoneValidator phoneValidator;
+
+        public UserValidator()
+        {
+            this.passwordValidator = new PasswordValidator();
+            this.emailValidator = new EmailValidator();
+            this.phoneValidator = new PhoneValidator();
+        }
         public UserValidatorModel Validate(UserValidatorModel user)
         {
             if (string.IsNullOrEmpty(user.Login) || user.Login.Length < 5 || user.Login.Length > 50 || user.Login.Any(x => !char.IsLetterOrDigit(x)))
@@ -19,17 +29,17 @@
                 throw new ArgumentException("Фамилия пользователя не может быть пустой");
             }
 
-            if (!PasswordValidator.TryParse(user.Password, out var password))
+            if (!passwordValidator.TryParse(user.Password, out var password))
             {
                 throw new ArgumentException("Неправильный формат пароля");
             }
 
-            if (!EmailValidator.TryParse(user.Email, out var email))
+            if (!emailValidator.TryParse(user.Email, out var email))
             {
                 throw new ArgumentException("Неправильный формат почты");
             }
 
-            if (!PhoneValidator.TryParse(user.Phone, out var phone))
+            if (!phoneValidator.TryParse(user.Phone, out var phone))
             {
                 throw new ArgumentException("Неправильный формат телефона");
             }

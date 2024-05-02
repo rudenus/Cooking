@@ -16,23 +16,27 @@ const AuthorizedLayout = ({ children, logout }) => {
                     mode="horizontal"
                 >
                     <Menu.Item key="2">
-                        <span>О приложении</span>
-                        <Link to="/about" />
+                        <span>Создать рецепт</span>
+                        <Link to="/recipes/create" />
+                    </Menu.Item>
+                    <Menu.Item key="3">
+                        <span>Авторизация</span>
+                        <Link to="/login" />
                     </Menu.Item>
                     <Menu.Item key="4">
-                        <span>Номера</span>
-                        <Link to="/rooms" />
+                        <span>Рецепты</span>
+                        <Link to="/recipes" />
                     </Menu.Item>
-                    <Menu.Item key="6">
-                        <span>Мои бронирования</span>
-                        <Link to="/bookings" />
+                    <Menu.Item key="5">
+                        <span>Регистрация</span>
+                        <Link to="/register" />
                     </Menu.Item>
                 </Menu>
             </Header>
             <Content className="site-layout" style={{ padding: '0 50px' }}>
                 {children}
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Санаторий Итиль</Footer>
+            <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>
     );
 }

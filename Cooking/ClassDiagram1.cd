@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Controllers">
+    <Position X="3.552" Y="0.5" Height="0.5" Width="0.95" />
+  </Comment>
+  <Comment CommentText="Authenticator">
+    <Position X="16.198" Y="0.531" Height="0.5" Width="0.95" />
+  </Comment>
+  <Comment CommentText="DuplicateFinder">
+    <Position X="14.146" Y="0.531" Height="0.5" Width="1.117" />
+  </Comment>
+  <Comment CommentText="Validators">
+    <Position X="9.677" Y="0.583" Height="0.5" Width="0.95" />
+  </Comment>
+  <Comment CommentText="Data Transfer Objects">
+    <Position X="3.363" Y="6.916" Height="0.5" Width="1.71" />
+  </Comment>
+  <Comment CommentText="Data Access Objects">
+    <Position X="11.005" Y="6.785" Height="0.5" Width="1.71" />
+  </Comment>
+  <Comment CommentText="BusinessLogic">
+    <Position X="2.204" Y="3.704" Height="0.5" Width="1.039" />
+  </Comment>
+  <Class Name="Cooking.Controllers.AccountController">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <AssociationLine Name="authenticator" Type="Cooking.Infrastructure.Authenticator.Authenticator">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.22" Y="0.214" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAACAAAAAAAAABAAAAAAAIAJABAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="authenticator" />
+      <Field Name="duplicateFinder" />
+      <Field Name="userLogic" />
+      <Field Name="validator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Controllers.ProductController">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controllers\ProductController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="productLogic" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Controllers.RecipeController">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAEAAEACAAIAAAAAAAI=</HashCode>
+      <FileName>Controllers\RecipeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="recipeValidator" />
+      <Field Name="recipeLogic" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Authenticator.Authenticator">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Authenticator\Authenticator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Authenticator.AuthOptions" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAABAAAAEAAQAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Authenticator\AuthOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.DuplicateFinder.DuplicateFinder">
+    <Position X="13.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\DuplicateFinder\DuplicateFinder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Infrastructure.DuplicateFinder.DuplicateFinderUserModel" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAA=</HashCode>
+      <FileName>Infrastructure\DuplicateFinder\DuplicateFinderUserModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.Recipe.RecipeValidator">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\Recipe\RecipeValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.Recipe.ValidatorRecipeInput" Collapsed="true">
+    <Position X="11.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\Recipe\ValidatorRecipeInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.Recipe.ValidatorRecipeOutput" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\Recipe\ValidatorRecipeOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.User.EmailValidator">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\User\EmailValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.User.PasswordValidator">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\User\PasswordValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.User.PhoneValidator">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\User\PhoneValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.User.UserValidator">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAASAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\User\UserValidator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="emailValidator" />
+      <Field Name="passwordValidator" />
+      <Field Name="phoneValidator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.User.UserValidatorModel" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQABAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\User\UserValidatorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Controllers.PublicationController">
+    <Position X="5.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABwAAAAIAAAAAABAAAAAAAQAAAEAAEAAAAAAAAAAggI=</HashCode>
+      <FileName>Controllers\PublicationController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="publicationValidator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cooking.Dto.Account.Get.GetResult" Collapsed="true">
+    <Position X="1" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\Account\Get\GetResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Account.Login.LoginForm" Collapsed="true">
+    <Position X="1" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Dto\Account\Login\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Account.Register.RegisterForm" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAAAAAAAAQABAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>Dto\Account\Register\RegisterForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Product.List.ListResult" Collapsed="true">
+    <Position X="4.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAAAAAAAAAAAABQAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>Dto\Product\List\ListResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.Create.CreateForm" Collapsed="true">
+    <Position X="1" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAgAAAAAAAAAAQAACAEAAEAAAAAAIAAAAA=</HashCode>
+      <FileName>Dto\Recipe\Create\CreateForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.Create.CreateFormProduct" Collapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAABQAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>Dto\Recipe\Create\CreateForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.Create.CreateFormOperation" Collapsed="true">
+    <Position X="4.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAAAAAAAAAAEAACAIAAAAAAAAAA=</HashCode>
+      <FileName>Dto\Recipe\Create\CreateForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.Create.CreateFormIngridient" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAACAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\Recipe\Create\CreateForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.List.ListForm" Collapsed="true">
+    <Position X="2.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAIAAAAAAAAAAACAAAAIAAAAAAIAAACEAQAABQ=</HashCode>
+      <FileName>Dto\Recipe\List\ListForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cooking.Dto.Recipe.List.ListResult" Collapsed="true">
+    <Position X="6.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAACABQAgAAAAAAAAAgACAAAAAQ=</HashCode>
+      <FileName>Dto\Recipe\List\ListResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.UserLogic">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.ProductLogic.ProductLogic">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Dal.Context" Collapsed="true">
+    <Position X="17.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.ProductLogic.Models.List.ListProductOutput" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInput" Collapsed="true">
+    <Position X="9.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputProduct" Collapsed="true">
+    <Position X="11.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputOperation" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.Create.CreateRecipeInputIngridient" Collapsed="true">
+    <Position X="11.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ListRecipeInput" Collapsed="true">
+    <Position X="13" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.Models.List.ListRecipeOutput" Collapsed="true">
+    <Position X="13" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.Models.Create.CreateUserInput" Collapsed="true">
+    <Position X="13" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BusinessLogic.UserLogic.Models.Get.GetUserOutput" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Cooking.Infrastructure.Validator.Publication.PublicationValidator">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Validator\Publication\PublicationValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLogic.RecipeLogic.RecipeLogic">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,38 @@
+.td-ingridient{
+    width: 150px;
+}
+#list-steps{
+    width:100%;
+}
+
+.textbox-short-number{
+    margin: 10px 20px;
+    width: 100px;
+}
+
+.app{
+    margin-top: 30px;
+}
+
+.input-description{
+    overflow:'hidden';
+    margin: 20px auto;
+    width: 75%;
+}
+
+#list-ingridients{
+    margin: 0px auto;
+    width: 85%;
+}
+
+.input-recipe-name{
+    text-align: left;
+    margin-left: 100px;
+    font-size: 18px;
+}
+
+.add-ingridient-img:hover{
+    rotate:180deg;
+    transform-origin: all;
+    transition-duration: 1s;
+  }

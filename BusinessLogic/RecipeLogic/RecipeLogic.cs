@@ -21,11 +21,26 @@ namespace BusinessLogic.RecipeLogic
             this.context = context;
         }
 
+        public async Task Get()
+        {
+
+        }
+
+        public async Task Update()
+        {
+
+        }
+
+        public async Task Delete()
+        {
+
+        }
+
         public async Task Create(CreateRecipeInput input)
         {
             Guid recipeId = Guid.NewGuid();
             
-            var recipe = GetRecipe(input, recipeId);
+            var recipe = await GetRecipe(input, recipeId);
 
             context.Add(recipe);
 
@@ -63,7 +78,7 @@ namespace BusinessLogic.RecipeLogic
             list.Skip(input.PageNumber * input.PageSize);
             list.Take(input.PageSize);
 
-            return list.Select(x => new ListRecipeOutput()
+            return await list.Select(x => new ListRecipeOutput()
             {
                 CaloriesPer100 = x.CaloriesPer100,
                 CarbohydratesPer100 = x.CarbohydratesPer100,
@@ -73,8 +88,19 @@ namespace BusinessLogic.RecipeLogic
                 Name = x.Name,
                 ProteinsPer100 = x.ProteinsPer100,
                 RecipeId = x.RecipeId,
-            }).ToArray();
+            }).ToArrayAsync();
 
+        }
+
+        private IQueryable<ListRecipeFilterModel> FilterWithReplacement(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
+        {
+            return list;
+            //context.ReplacementProducts
+            //    .Where(x => input.Products.Contains(x.ReplacementId))
+            //    .Select(x => new
+            //    {
+            //        x.
+            //    })
         }
 
         private IQueryable<ListRecipeFilterModel> FilterList(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
@@ -156,7 +182,7 @@ namespace BusinessLogic.RecipeLogic
 
                 else
                 {
-                    recipe.ServingsNumber = recipe.Weight / averageServingSize;
+                    recipe.ServingsNumber = (int)Math.Ceiling((double)recipe.Weight / (double)averageServingSize);
                 }
             }
 
@@ -198,7 +224,7 @@ namespace BusinessLogic.RecipeLogic
                 })
                 .ToListAsync();
 
-            listAllProducts.AddRange(ingridients.Select(x => x.NewProduct));
+            listAllProducts.AddRange(ingridients.Where(x => !x.ExistingProductId.HasValue).Select(x => x.NewProduct));
 
             return listAllProducts;
         }
@@ -212,9 +238,10 @@ namespace BusinessLogic.RecipeLogic
                 IngridientId = Guid.NewGuid(),
                 ProductId = x.ExistingProductId!.Value,
                 RecipeId = recipeId,
+                Weight = x.Weight,
             }));
 
-            foreach (var ingridient in ingridients.Where(x => x.NewProduct != null))
+            foreach (var ingridient in ingridients.Where(x => !x.ExistingProductId.HasValue))
             {
                 Guid productId = Guid.NewGuid();
                 listIngridients.Add(new Ingridient()
@@ -222,9 +249,10 @@ namespace BusinessLogic.RecipeLogic
                     IngridientId = Guid.NewGuid(),
                     RecipeId = recipeId,
                     Weight = ingridient.Weight,
+                    ProductId = productId,
                     Product = new Product()
                     {
-                        ProductId = Guid.NewGuid(),
+                        ProductId = productId,
                         Calories = ingridient.NewProduct.Calories,
                         Carbohydrates = ingridient.NewProduct.Carbohydrates,
                         Fats = ingridient.NewProduct.Fats,
@@ -253,7 +281,6 @@ namespace BusinessLogic.RecipeLogic
                 RecipeId = recipeId,
                 Step = x.Step,
                 TimeInSeconds = x.TimeInSeconds,
-                Title = x.Title,
             }).ToList();
         }
     }

@@ -14,6 +14,8 @@
 
         public int LikesNumber { get; set; }
 
+        public Guid UserId { get; set; }
+
         public Guid RecipeId { get; set; }
 
         public string Title { get; set; }
@@ -23,6 +25,8 @@
         public File? File { get; set; }
 
         public ICollection<Like> Likes { get; set; } = new List<Like>();
+
+        public User User { get; set; }
 
         public Recipe? Recipe {  get; set; } 
     }

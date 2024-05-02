@@ -4,11 +4,11 @@ namespace Cooking.Infrastructure.Validator.User
 {
     internal class EmailValidator
     {
-        private static readonly Regex EmailPattern = new Regex(
+        private readonly Regex EmailPattern = new Regex(
                 pattern: @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
                 options: RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
 
-        public static bool TryParse(string value, out string email)
+        public bool TryParse(string value, out string email)
         {
             email = null;
 

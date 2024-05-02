@@ -19,10 +19,10 @@ const Register
             <div style={{ width: 500, margin: "auto" }}>
                 <Input
                     onChange={(e) => { setName(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Name"
+                    style={{ marginTop: "75px" }}
+                    placeholder="Имя"
                     suffix={
-                        <Tooltip title="Enter your name">
+                        <Tooltip title="Введите имя">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
@@ -30,10 +30,10 @@ const Register
 
                 <Input
                     onChange={(e) => { setSurname(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Surname"
+                    style={{ marginTop: "15px" }}
+                    placeholder="Фамилия"
                     suffix={
-                        <Tooltip title="Enter your surname">
+                        <Tooltip title="Введите фамилию">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
@@ -41,10 +41,10 @@ const Register
 
                 <Input
                     onChange={(e) => { setPatronymic(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Patronymic"
+                    style={{ marginTop: "15px" }}
+                    placeholder="Отчество"
                     suffix={
-                        <Tooltip title="Enter your patronymic">
+                        <Tooltip title="Введите отчество">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
@@ -52,10 +52,10 @@ const Register
 
                 <Input
                     onChange={(e) => { setPhone(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Phone"
+                    style={{ marginTop: "15px" }}
+                    placeholder="Телефон"
                     suffix={
-                        <Tooltip title="Enter your phone">
+                        <Tooltip title="Введите телефон">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
@@ -63,10 +63,10 @@ const Register
 
                 <Input
                     onChange={(e) => { setEmail(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Email"
+                    style={{ marginTop: "15px" }}
+                    placeholder="Почта"
                     suffix={
-                        <Tooltip title="Enter your email">
+                        <Tooltip title="Введите почту">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
@@ -74,16 +74,16 @@ const Register
 
                 <Input
                     onChange={(e) => { setLogin(e.target.value) }}
-                    style={{ marginTop: "5px" }}
-                    placeholder="Login"
+                    style={{ marginTop: "15px" }}
+                    placeholder="Логин"
                     suffix={
-                        <Tooltip title="Enter your login">
+                        <Tooltip title="Введите логин">
                             <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                         </Tooltip>
                     }
                 />
 
-                <Input.Password onChange={(e) => { setPassword(e.target.value) }} placeholder="Input password" style={{ marginTop: "5px" }} />
+                <Input.Password onChange={(e) => { setPassword(e.target.value) }} placeholder="Введите пароль" style={{ marginTop: "15px", marginBottom:"15px" }} />
 
                 <Button type="primary" onClick={() => {
                     api.post('/account/register',
