@@ -1,13 +1,15 @@
-import { Button, Input, Table } from 'antd';
+import { Button, Input, Table, Select, Radio  } from 'antd';
 import React, { useEffect, useState } from 'react';
 import api from "../../../api/api";
 import './ListRecipe.css';
-const { Column } = Table;
 
 const ListRecipe = () => {
 
     const [recipes, setArray] = useState([]);
-    const [item, setItem] = useState({});
+
+    const [productsFilter, setProductsFilter] = useState([]);
+
+    const [products, setProducts] = useState('');
 
     const [caloriesMin, setCaloriesMin] = useState('');
     const [caloriesMax, setCaloriesMax] = useState('');
@@ -17,6 +19,9 @@ const ListRecipe = () => {
     const [fatsMax, setFatsMax] = useState('');
     const [carbohydratesMin, setCarbohydratesMin] = useState('');
     const [carbohydratesMax, setCarbohydratesMax] = useState('');
+
+    const [radioGroupValue, setRadioGroupValue] = useState(1);
+    const [replacementLevel, setReplacementLevel] = useState(null);
 
 
     const columns = [
@@ -63,13 +68,39 @@ const ListRecipe = () => {
             setArray(res.data);
             console.log(res.data);
         });
+
+        api.get("/Product").then(res => {
+            let list = res.data.map(x => ({
+              value:x.productId,
+              label:x.name}));
+            setProducts(list);
+        });
+
     }, []);
+
+    function onRadioGroupChange(e){
+        let value = e.target.value
+        setRadioGroupValue(value);
+        if(value === 1){
+            setReplacementLevel(null)
+        }
+        if(value === 2){
+            setReplacementLevel("Low")
+        }
+        if(value === 3){
+            setReplacementLevel("Medium")
+        }
+        if(value === 4){
+            setReplacementLevel("Hard")
+        }
+    }
 
     return (
         <div>
         <table style={{ width: 1200, margin: "20px auto" }}>
             <tbody>
                 <tr>
+                    <td><Button type="primary" style={{ height:'60px', marginRight:'20px'}}> Расширенная<br /> фильтрация</Button></td>
                     <td className="column-filter">
                         <label>Каллории на 100г.</label><br/>
                         <table>
@@ -125,7 +156,7 @@ const ListRecipe = () => {
                                             className="filter-input-small-text"
                                             type="text"
                                             name = "proteinsMax"
-                                            onChange={(e) => { setCaloriesMax(e.target.value) }} />
+                                            onChange={(e) => { setProteinsMax(e.target.value) }} />
                                     </td>
                                 </tr>
                             </tbody>
@@ -205,8 +236,12 @@ const ListRecipe = () => {
                                     FatsMin : fatsMin,
                                     FatsMax : fatsMax,
                                     CarbohydratesMin : carbohydratesMin,
-                                    CarbohydratesMax : carbohydratesMax
-                                
+                                    CarbohydratesMax : carbohydratesMax,
+                                    Products : productsFilter,
+                                    ReplacementLevel : replacementLevel
+                                },
+                                paramsSerializer: {
+                                    indexes: true,
                                 }}
                                 ).then(res => {
                                     setArray(res.data);
@@ -217,9 +252,30 @@ const ListRecipe = () => {
                     
                 </tr>
             </tbody>
-           
-            
         </table>
+        
+        <div id='additional-filters'>
+            <div style={{margin:'10px 0 10px 30px'}}>Выберите продукты</div>
+            <Select
+            mode="multiple"
+            allowClear
+            style={{ width: '50%', display:'block'}}
+            placeholder="Список продуктов"
+            onChange={setProductsFilter}
+            maxCount={5}
+            options={products}
+            value={productsFilter}
+            /> 
+            <div style={{display:'block'}}>
+                <div style={{margin:'20px 0 10px 30px'}}>Выберите степень замещения</div>
+                <Radio.Group style={{display:'block', width:'50%',  textAlign:'left'}} onChange={onRadioGroupChange} value={radioGroupValue}>
+                    <Radio value={1}>Не учитывать</Radio>
+                    <Radio value={2}>Слабо</Radio>
+                    <Radio value={3}>Средне</Radio>
+                    <Radio value={4}>Сильно</Radio>
+                </Radio.Group> 
+            </div>       
+        </div>
 
         <Table dataSource={recipes} columns={columns.filter(x => x.hide !== true)} rowKey="recipeId" >
             

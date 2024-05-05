@@ -16,9 +16,12 @@ namespace BusinessLogic.RecipeLogic
         private const string operationFileName = "Приложение к шагу рецепта рецепту";
 
         private readonly Context context;
+
+        private readonly Filtrator filtrator;
         public RecipeLogic(Context context)
         {
             this.context = context;
+            this.filtrator = new Filtrator(context);
         }
 
         public async Task Get()
@@ -73,10 +76,7 @@ namespace BusinessLogic.RecipeLogic
                     })
                 });
 
-            list = FilterList(list, input);
-
-            list.Skip(input.PageNumber * input.PageSize);
-            list.Take(input.PageSize);
+            list = await filtrator.Filter(list, input);
 
             return await list.Select(x => new ListRecipeOutput()
             {
@@ -90,67 +90,6 @@ namespace BusinessLogic.RecipeLogic
                 RecipeId = x.RecipeId,
             }).ToArrayAsync();
 
-        }
-
-        private IQueryable<ListRecipeFilterModel> FilterWithReplacement(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
-        {
-            return list;
-            //context.ReplacementProducts
-            //    .Where(x => input.Products.Contains(x.ReplacementId))
-            //    .Select(x => new
-            //    {
-            //        x.
-            //    })
-        }
-
-        private IQueryable<ListRecipeFilterModel> FilterList(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
-        {
-            if (input.Products.Any())
-            {
-                list = list.Where(x => x.Products.All(y => input.Products.Any(z => z == y.ProductId)));
-            }
-
-            if (input.CaloriesMin.HasValue)
-            {
-                list = list.Where(x => x.CaloriesPer100 >= input.CaloriesMin.Value);
-            }
-
-            if (input.CaloriesMax.HasValue)
-            {
-                list = list.Where(x => x.CaloriesPer100 <= input.CaloriesMax.Value);
-            }
-
-            if (input.CarbohydratesMin.HasValue)
-            {
-                list = list.Where(x => x.CarbohydratesPer100 >= input.CarbohydratesMin.Value);
-            }
-
-            if (input.CarbohydratesMax.HasValue)
-            {
-                list = list.Where(x => x.CarbohydratesPer100 <= input.CarbohydratesMax.Value);
-            }
-
-            if (input.FatsMin.HasValue)
-            {
-                list = list.Where(x => x.FatsPer100 >= input.FatsMin.Value);
-            }
-
-            if (input.FatsMax.HasValue)
-            {
-                list = list.Where(x => x.FatsPer100 <= input.FatsMax.Value);
-            }
-
-            if (input.ProteinsMin.HasValue)
-            {
-                list = list.Where(x => x.ProteinsPer100 >= input.ProteinsMin.Value);
-            }
-
-            if (input.ProteinsMax.HasValue)
-            {
-                list = list.Where(x => x.ProteinsPer100 <= input.ProteinsMax.Value);
-            }
-
-            return list;
         }
 
         private async Task<Recipe> GetRecipe(CreateRecipeInput input, Guid recipeId)

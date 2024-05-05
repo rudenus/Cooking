@@ -5,3 +5,9 @@
 .column-filter{
     padding-right: 50px;
 }
+
+#additional-filters{
+    margin: 20px auto;
+    width:1200px;
+    text-align: left;
+}

@@ -1,8 +1,12 @@
-﻿namespace BusinessLogic.RecipeLogic.Models.List
+﻿using BusinessLogic.RecipeLogic.Enums;
+
+namespace BusinessLogic.RecipeLogic.Models.List
 {
     public class ListRecipeInput
     {
         public IEnumerable<Guid> Products { get; set; }
+
+        public ReplacementLevel? ReplacementLevel { get; set; }
 
         public int? CaloriesMin { get; set; }
 

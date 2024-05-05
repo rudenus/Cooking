@@ -1,4 +1,6 @@
-﻿namespace Cooking.Dto.Recipe.List
+﻿using BusinessLogic.RecipeLogic.Enums;
+
+namespace Cooking.Dto.Recipe.List
 {
     public class ListForm
     {
@@ -22,6 +24,8 @@
 
         public int? PageNumber { get; set; }
         public int? PageSize { get; set; }
+
+        public ReplacementLevel? ReplacementLevel { get; set; }
 
     }
 }

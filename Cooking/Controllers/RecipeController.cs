@@ -129,6 +129,7 @@ namespace Cooking.Controllers
                 Products = input.Products,
                 PageNumber = input.PageNumber ?? 0,
                 PageSize = input.PageSize ?? 20,
+                ReplacementLevel = input.ReplacementLevel
             });
 
             return Ok(listRecipe.Select(x => new ListResult()
