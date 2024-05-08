@@ -51,6 +51,7 @@ namespace Cooking.Controllers
 
             try
             {
+                //в будущих проектах нужно разделять валидацию и нормализацию
                 var validRecipe = recipeValidator.Validate(new ValidatorRecipeInput()
                 {
                     Ingridients = input.Ingridients.Select(x => new ValidatorRecipeInputIngridient()
@@ -58,7 +59,6 @@ namespace Cooking.Controllers
                         ExistingProductId = x.ExistingProductId,
                         NewProduct = x.NewProduct != null ? new ValidatorRecipeInputProduct()
                         {
-                            Calories = x.NewProduct.Calories,
                             Carbohydrates = x.NewProduct.Carbohydrates,
                             Fats = x.NewProduct.Fats,
                             Proteins = x.NewProduct.Proteins
@@ -84,9 +84,8 @@ namespace Cooking.Controllers
                 recipe.Ingridients = validRecipe.Ingridients.Zip(input.Ingridients).Select(x => new CreateRecipeInputIngridient()
                 {
                     ExistingProductId = x.First.ExistingProductId,
-                    NewProduct = !x.First.ExistingProductId.HasValue ? new CreateRecipeInputProduct()
+                    Product = !x.First.ExistingProductId.HasValue ? new CreateRecipeInputProduct()
                     {
-                        Calories = x.First.NewProduct.Calories,
                         Carbohydrates = x.First.NewProduct.Carbohydrates,
                         Fats = x.First.NewProduct.Fats,
                         Name = x.Second.NewProduct.Name,

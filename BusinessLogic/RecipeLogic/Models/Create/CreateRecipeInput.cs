@@ -21,7 +21,7 @@
 
     public class CreateRecipeInputProduct
     {
-        public int Calories { get; set; }
+        public int? Calories { get; set; }
 
         public int Carbohydrates { get; set; }
 
@@ -45,7 +45,7 @@
 
     public class CreateRecipeInputIngridient
     {
-        public CreateRecipeInputProduct NewProduct { get; set; }
+        public CreateRecipeInputProduct Product { get; set; }
 
         public Guid? ExistingProductId { get; set; }
 

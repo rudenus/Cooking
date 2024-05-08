@@ -184,50 +184,63 @@ const CreateRecipe = () => {
   }
 
   function updateAllSums(ingridients){
-    let caloriesFromIngridients = ingridients.reduce((sum, current) =>{
-      if(current.isNewProduct){
-        return sum + current.newCalories
-      }
-      else{
-        return sum + current.calories
-      }
-    }, 0)
-    setCaloriesSum(caloriesFromIngridients)
-
-    let proteinsFromIngridients = ingridients.reduce((sum, current) =>{
-      if(current.isNewProduct){
-        return sum + current.newProteins
-      }
-      else{
-        return sum + current.proteins
-      }
-    }, 0)
-    setProteinsSum(proteinsFromIngridients)
-
-    let fatsFromIngridients = ingridients.reduce((sum, current) =>{
-      if(current.isNewProduct){
-        return sum + current.newFats
-      }
-      else{
-        return sum + current.fats
-      }
-    }, 0)
-    setFatsSum(fatsFromIngridients)
-
-    let carbohydratesFromIngridients = ingridients.reduce((sum, current) =>{
-      if(current.isNewProduct){
-        return sum + current.newCarbohydrates
-      }
-      else{
-        return sum + current.carbohydrates
-      }
-    }, 0)
-    setCarbohydratesSum(carbohydratesFromIngridients)
 
     let weightFromIngridients = ingridients.reduce((sum, current) =>{
       return sum + current.weight
     }, 0)
     setWeightSum(weightFromIngridients)
+
+    if(weightFromIngridients === 0){
+      setCaloriesSum(0)
+      setProteinsSum(0)
+      setFatsSum(0)
+      setCarbohydratesSum(0)
+      return
+    }
+
+    let caloriesFromIngridients = ingridients.reduce((sum, current) =>{
+      if(current.isNewProduct){
+        return sum + Math.round(current.newCalories / 100 * current.weight)
+      }
+      else{
+        return sum + Math.round(current.calories / 100 * current.weight)
+      }
+    }, 0)
+    let caloriesPer100 = Math.round(caloriesFromIngridients * 100 / weightFromIngridients)
+    setCaloriesSum(caloriesPer100)
+
+    let proteinsFromIngridients = ingridients.reduce((sum, current) =>{
+      if(current.isNewProduct){
+        return sum + Math.round(current.newProteins / 100 * current.weight)
+      }
+      else{
+        return sum + Math.round(current.proteins / 100 * current.weight)
+      }
+    }, 0)
+    let proteinsPer100 = Math.round(proteinsFromIngridients * 100 / weightFromIngridients)
+    setProteinsSum(proteinsPer100)
+
+    let fatsFromIngridients = ingridients.reduce((sum, current) =>{
+      if(current.isNewProduct){
+        return sum + Math.round(current.newFats / 100 * current.weight)
+      }
+      else{
+        return sum + Math.round(current.fats / 100 * current.weight)
+      }
+    }, 0)
+    let fatsPer100 = Math.round(fatsFromIngridients * 100 / weightFromIngridients)
+    setFatsSum(fatsPer100)
+
+    let carbohydratesFromIngridients = ingridients.reduce((sum, current) =>{
+      if(current.isNewProduct){
+        return sum + Math.round(current.newCarbohydrates / 100 * current.weight)
+      }
+      else{
+        return sum + Math.round(current.carbohydrates / 100 * current.weight)
+      }
+    }, 0)
+    let carbohydratesPer100 = Math.round(carbohydratesFromIngridients * 100 / weightFromIngridients)
+    setCarbohydratesSum(carbohydratesPer100)
 
   }
 
@@ -244,16 +257,16 @@ const CreateRecipe = () => {
             <tbody >
               <tr>
                 <td className="td-ingridient"><div>Название</div></td>
-                <td className="td-ingridient"><div>Каллории</div></td>
-                <td className="td-ingridient"><div>Белки</div></td>
-                <td className="td-ingridient"><div>Жиры</div></td>
-                <td className="td-ingridient"><div>Углеводы</div></td>
+                <td className="td-ingridient"><div>Каллории на 100г.</div></td>
+                <td className="td-ingridient"><div>Белки на 100г.</div></td>
+                <td className="td-ingridient"><div>Жиры на 100г.</div></td>
+                <td className="td-ingridient"><div>Углеводы на 100г.</div></td>
                 <td className="td-ingridient"><div>Вес</div></td>
                 <td className="td-ingridient"><div>Новый продукт</div></td>
                 <td className="td-ingridient"><div>Удалить</div></td>
               </tr>
               {ingridientNodes}
-              <tr>
+              <tr className='result-sums'>
                 <td className="td-ingridient"><div style={{fontWeight:600}}>Итого</div></td>
                 <td className="td-ingridient"><div>{caloriesSum}</div></td>
                 <td className="td-ingridient"><div>{proteinsSum}</div></td>

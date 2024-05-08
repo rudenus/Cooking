@@ -25,8 +25,6 @@ namespace Cooking.Dto.Recipe.Create
 
     public class CreateFormProduct
     {
-        [Required]
-        public int Calories { get; set; }
 
         [Required]
         public int Carbohydrates { get; set; }

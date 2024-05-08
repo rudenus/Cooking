@@ -36,3 +36,7 @@
     transform-origin: all;
     transition-duration: 1s;
   }
+
+.result-sums td{
+    padding-top: 30px;
+}

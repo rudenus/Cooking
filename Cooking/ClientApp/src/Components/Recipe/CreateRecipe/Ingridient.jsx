@@ -8,70 +8,22 @@ import bmw from './bmw.svg';
 const Ingridient = ({products, ingridientId, updateIngridientInParentState, deleteIngridient}) => {
   
   const [name, setName] = useState('');
-  // let name = ''
-  // function setName(value) {
-  //   name = value;
-  // }
     
 
   const [calories, setCalories] = useState(0);
-  // let calories = ''
-  // function setCalories(value) {
-  //   calories = value;
-  // }
   const [proteins, setProteins] = useState(0);
-  // let proteins = ''
-  // function setProteins(value) {
-  //   proteins = value;
-  // }
   const [fats, setFats] = useState(0);
-  // let fats = ''
-  // function setFats(value) {
-  //   fats = value;
-  // }
   const [carbohydrates, setCarbohydrates] = useState(0);
-  // let carbohydrates = ''
-  // function setCarbohydrates(value) {
-  //   carbohydrates = value;
-  // }
 
   const [newName, setNewName] = useState('');
-  // let newName = ''
-  // function setNewName(value) {
-  //   newName = value;
-  // }
 
   const [newCalories, setNewCalories] = useState(0);
-  // let newCalories = ''
-  // function setNewCalories(value) {
-  //   newCalories = value;
-  // }
   const [newProteins, setNewProteins] = useState(0);
-  // let newProteins = ''
-  // function setNewProteins(value) {
-  //   newProteins = value;
-  // }
   const [newFats, setNewFats] = useState(0);
-  // let newFats = ''
-  // function setNewFats(value) {
-  //   newFats = value;
-  // }
   const [newCarbohydrates, setNewCarbohydrates] = useState(0);
-  // let newCarbohydrates = ''
-  // function setNewCarbohydrates(value) {
-  //   newCarbohydrates = value;
-  // }
 
   const [weight, setWeight] = useState(0);
-  // let weight = ''
-  // function setWeight(value) {
-  //   weight = value;
-  // }
   const [isNewProduct, setIsNewProduct] = useState(false);
-  // let isNewProduct = ''
-  // function setIsNewProduct(value) {
-  //   isNewProduct = value;
-  // }
 
     function checkboxChange(e){
         let ingridientNode = e.target.parentElement.parentElement;
@@ -214,9 +166,12 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
     }
 
     function inputNewProteinsHandler(e){
-      let localNewProducts = Number(e.target.value.replace(/\D/g,''))
-      setNewProteins(localNewProducts)
-      
+      let localNewProteins = Number(e.target.value.replace(/\D/g,''))
+      setNewProteins(localNewProteins)
+
+      let localNewCalories = calculateCalories(localNewProteins, newFats, newCarbohydrates)
+      setNewCalories(localNewCalories)
+
       let newIngridient = {
         name:name,
         
@@ -227,8 +182,8 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
 
         newName:newName,
 
-        newCalories:newCalories,
-        newProteins:localNewProducts,
+        newCalories:localNewCalories,
+        newProteins:localNewProteins,
         newFats:newFats,
         newCarbohydrates:newCarbohydrates,
 
@@ -244,6 +199,9 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
     function inputNewFatsHandler(e){
       let localNewFats = Number(e.target.value.replace(/\D/g,''))
       setNewFats(localNewFats)
+
+      let localNewCalories = calculateCalories(newProteins, localNewFats, newCarbohydrates)
+      setNewCalories(localNewCalories)
       
       let newIngridient = {
         name:name,
@@ -255,7 +213,7 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
 
         newName:newName,
 
-        newCalories:newCalories,
+        newCalories:localNewCalories,
         newProteins:newProteins,
         newFats:localNewFats,
         newCarbohydrates:newCarbohydrates,
@@ -272,6 +230,8 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
     function inputNewCarbohydratesHandler(e){
       let localNewCarbohydrates = Number(e.target.value.replace(/\D/g,''))
       setNewCarbohydrates(localNewCarbohydrates)
+      let localNewCalories = calculateCalories(newProteins, newFats, localNewCarbohydrates)
+      setNewCalories(localNewCalories)
       
       let newIngridient = {
         name:name,
@@ -283,7 +243,7 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
 
         newName:newName,
 
-        newCalories:newCalories,
+        newCalories:localNewCalories,
         newProteins:newProteins,
         newFats:newFats,
         newCarbohydrates:localNewCarbohydrates,
@@ -352,6 +312,10 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
       updateIngridientInParentState(newIngridient)
     }
 
+    function calculateCalories(proteins, fats, carbohydrates){
+      return proteins * 4 + fats * 9 + carbohydrates * 4
+    }
+
     return (
         <tr className="ingridient" id={ingridientId}>
             <td className="td-name">
@@ -359,7 +323,7 @@ const Ingridient = ({products, ingridientId, updateIngridientInParentState, dele
               <Select showSearch={true} optionFilterProp="label" options={products} onChange={event => selectChange(event)} value={name} className='select-name'/>
               </td>
             <td className="td-calories">
-              <input type="text" className="input-calories textbox-short-number" value={newCalories} onInput={event => inputNewCaloriesHandler(event)} style={{display:'none'}}></input>
+              <div type="text" className="input-calories div-short-number" onInput={event => inputNewCaloriesHandler(event)} style={{display:'none'}}>{newCalories}</div>
               <div className="div-short-number div-calories">{calories}</div>
               </td>
             <td className="td-proteins">

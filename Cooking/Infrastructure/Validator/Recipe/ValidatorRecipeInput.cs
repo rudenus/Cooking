@@ -25,8 +25,6 @@
 
     public class ValidatorRecipeInputProduct
     {
-        public int Calories { get; set; }
-
         public int Carbohydrates { get; set; }
 
         public int Fats { get; set; }

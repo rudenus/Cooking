@@ -140,32 +140,67 @@ namespace BusinessLogic.RecipeLogic
                 }
             }
 
-            var listAllProducts = await GetAllProducts(input.Ingridients);
+            var listAllIngridients = await FillExistingIngridients(input.Ingridients);
 
-            recipe.Calories = listAllProducts.Sum(x => x.Calories);
-            recipe.Carbohydrates = listAllProducts.Sum(x => x.Carbohydrates);
-            recipe.Fats = listAllProducts.Sum(x => x.Fats);
-            recipe.Proteins = listAllProducts.Sum(x => x.Proteins);
+            recipe.Calories = 0;
+            recipe.Carbohydrates = 0;
+            recipe.Proteins = 0;
+            recipe.Fats = 0;
+
+            foreach (var ingridient in listAllIngridients)
+            {
+                recipe.Fats += (int)Math.Round(ingridient.Product.Fats * ingridient.Weight / 100d);
+                recipe.Proteins += (int)Math.Round(ingridient.Product.Proteins * ingridient.Weight / 100d);
+                recipe.Carbohydrates += (int)Math.Round(ingridient.Product.Carbohydrates * ingridient.Weight / 100d);
+
+                int calories = ingridient.Product.Calories ?? CalculateCalories(ingridient.Product.Proteins, ingridient.Product.Fats, ingridient.Product.Carbohydrates);
+                recipe.Calories += (int)Math.Round(calories * ingridient.Weight / 100d);
+            }
 
             return recipe;
         }
 
-        private async Task<List<CreateRecipeInputProduct>> GetAllProducts(IEnumerable<CreateRecipeInputIngridient> ingridients)
+        private async Task<List<CreateRecipeInputIngridient>> FillExistingIngridients(IEnumerable<CreateRecipeInputIngridient> ingridients)
         {
-            var listAllProducts = await context.Products
-                .Where(x => ingridients.Select(x => x.ExistingProductId).Distinct().Contains(x.ProductId))
-                .Select(x => new CreateRecipeInputProduct()
+            var productIds = ingridients.Where(x => x.ExistingProductId.HasValue).Select(x => x.ExistingProductId);
+            
+            var productsDictionary = await context.Products
+                .Where(x => productIds.Contains(x.ProductId))
+                .Select(x => new CreateRecipeInputIngridient()
                 {
-                    Calories = x.Calories,
-                    Carbohydrates = x.Carbohydrates,
-                    Fats = x.Fats,
-                    Proteins = x.Proteins,
+                    ExistingProductId = x.ProductId,
+                    Product = new CreateRecipeInputProduct()
+                    {
+                        Calories = x.Calories,
+                        Carbohydrates = x.Carbohydrates,
+                        Fats = x.Fats,
+                        Proteins = x.Proteins,
+                    }
                 })
-                .ToListAsync();
+                .ToDictionaryAsync(x => x.ExistingProductId!.Value, y => y.Product);
 
-            listAllProducts.AddRange(ingridients.Where(x => !x.ExistingProductId.HasValue).Select(x => x.NewProduct));
+            var listResult = new List<CreateRecipeInputIngridient>(ingridients.Count());
 
-            return listAllProducts;
+            foreach(var ingridient in ingridients)
+            {
+                var newElement = new CreateRecipeInputIngridient();
+
+                newElement.Weight = ingridient.Weight;
+
+                if (ingridient.ExistingProductId.HasValue)
+                {
+                    newElement.Product = productsDictionary[ingridient.ExistingProductId!.Value];
+                }
+
+                else
+                {
+                    newElement.Product = ingridient.Product;
+                }
+
+                listResult.Add(newElement);
+            }
+
+            return listResult;
         }
 
         private List<Ingridient> GetIngridients(IEnumerable<CreateRecipeInputIngridient> ingridients, Guid recipeId)
@@ -192,12 +227,12 @@ namespace BusinessLogic.RecipeLogic
                     Product = new Product()
                     {
                         ProductId = productId,
-                        Calories = ingridient.NewProduct.Calories,
-                        Carbohydrates = ingridient.NewProduct.Carbohydrates,
-                        Fats = ingridient.NewProduct.Fats,
+                        Calories = CalculateCalories(ingridient.Product.Proteins, ingridient.Product.Fats, ingridient.Product.Carbohydrates) ,
+                        Carbohydrates = ingridient.Product.Carbohydrates,
+                        Fats = ingridient.Product.Fats,
                         IsModerated = false,
-                        Name = ingridient.NewProduct.Name,
-                        Proteins = ingridient.NewProduct.Proteins,
+                        Name = ingridient.Product.Name,
+                        Proteins = ingridient.Product.Proteins,
                     }
                 });
             }
@@ -221,6 +256,11 @@ namespace BusinessLogic.RecipeLogic
                 Step = x.Step,
                 TimeInSeconds = x.TimeInSeconds,
             }).ToList();
+        }
+
+        private int CalculateCalories(int proteins, int fats, int carbohydrates)
+        {
+            return proteins * 4 + carbohydrates * 4 + fats * 9;
         }
     }
 }

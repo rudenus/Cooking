@@ -23,11 +23,6 @@ namespace Cooking.Infrastructure.Validator.Recipe
                     throw new ArgumentException("Продукт не может быть пустым");
                 }
 
-                if(ingridient.NewProduct.Calories < 0)
-                {
-                    throw new ArgumentException("Количество калорий в продукте не может быть отрицательным");
-                }
-
                 if (ingridient.NewProduct.Carbohydrates < 0)
                 {
                     throw new ArgumentException("Количество углеводов в продукте не может быть отрицательным");
@@ -61,8 +56,7 @@ namespace Cooking.Infrastructure.Validator.Recipe
                     ExistingProductId = x.ExistingProductId,
                     NewProduct = x.NewProduct != null ? new ValidatorRecipeOutputProduct()
                     {
-                        Calories = x.NewProduct.Calories,
-                        Carbohydrates = x.NewProduct.Calories,
+                        Carbohydrates = x.NewProduct.Carbohydrates,
                         Fats = x.NewProduct.Fats,
                         Proteins = x.NewProduct.Proteins
                     } : null,
