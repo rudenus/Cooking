@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CreateRecipe.css';
 import api from "../../../api/api";
 import Ingridient from './Ingridient';
@@ -10,17 +10,40 @@ import { useNavigate } from 'react-router-dom';
 
 
 const CreateRecipe = () => {
-  let navigate = useNavigate();
   
   const header = (
     <div>
-        <span className="ql-formats">
-            <button className="ql-bold" aria-label="Bold"></button>
-            <button className="ql-italic" aria-label="Italic"></button>
-            <button className="ql-underline" aria-label="Underline"></button>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+          <button class="ql-strike"></button>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-color"></select>
+          <select class="ql-background"></select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-script" value="sub"></button>
+          <button class="ql-script" value="super"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-blockquote"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+          <button class="ql-indent" value="-1"></button>
+          <button class="ql-indent" value="+1"></button>
+        </span>
+        <span class="ql-formats">
+        <button class="ql-direction" value="rtl"></button>
+        <select class="ql-align"></select>
         </span>
     </div>
     );
+
+    let navigate = useNavigate();
 
     const [weightSum, setWeightSum] = useState(0);
     const [caloriesSum, setCaloriesSum] = useState(0);
@@ -172,6 +195,7 @@ const CreateRecipe = () => {
   }
 
   function descriptionChangeHandler(value){
+    console.log(value)
     setDescription(value)
   }
 

@@ -15,6 +15,25 @@ namespace Cooking.Infrastructure.Authenticator
             this.context = context;
         }
 
+        public async Task<AuthenticateResult> Authenticate(string login, string password)
+        {//говнокод, но времени мало ):
+            var token = await GetToken(login, password);
+            var role = (await context.Users
+                .Select(x => new
+                {
+                    x.Login,
+                    x.Role
+                })
+                .FirstOrDefaultAsync(x => x.Login == login))
+                !.Role;
+
+            return new AuthenticateResult()
+            {
+                Role = role,
+                Token = token
+            };
+        }
+
         public async Task<string> GetToken(string login, string password)
         {
             var authenticateResult = await GetClaims(login, password);
@@ -40,7 +59,7 @@ namespace Cooking.Infrastructure.Authenticator
                 {
                     x.Login,
                     x.PasswordHash,
-                    x.UserId
+                    x.UserId,
                 })
                 .FirstOrDefaultAsync(x => x.Login == login);
 

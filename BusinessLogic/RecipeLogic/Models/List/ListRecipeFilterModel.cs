@@ -10,11 +10,15 @@
 
         public int FatsPer100 { get; set; }
 
+        public bool IsModerated { get; set; }
+
         public string Name { get; set; }
 
         public int ProteinsPer100 { get; set; }
 
         public Guid RecipeId { get; set; }
+
+        public Guid UserId { get; set; }
 
         public int Weight { get; set; }
 

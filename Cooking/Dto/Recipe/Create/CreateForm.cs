@@ -9,8 +9,6 @@ namespace Cooking.Dto.Recipe.Create
         [Required]
         public string Description { get; set; }
 
-        //public IFormFile? File {  get; set; }
-
         [Required]
         public string Name { get; set; }
 

@@ -2,14 +2,20 @@ import { Button, Input, Table, Select, Radio  } from 'antd';
 import React, { useEffect, useState } from 'react';
 import api from "../../../api/api";
 import './ListRecipe.css';
+import store from '../../../data/Store';
+import { useNavigate } from 'react-router-dom';
 
-const ListRecipe = () => {
+const ListRecipe = (params) => {
+    const isModerator = store.getState()?.AuthorizationReducer?.isModerator;
+
 
     const [recipes, setArray] = useState([]);
 
     const [productsFilter, setProductsFilter] = useState([]);
 
     const [products, setProducts] = useState('');
+
+    let navigate = useNavigate();
 
     const [caloriesMin, setCaloriesMin] = useState('');
     const [caloriesMax, setCaloriesMax] = useState('');
@@ -60,11 +66,14 @@ const ListRecipe = () => {
             title: 'Используемые продукты',
             dataIndex: 'products',
             key: 'products',
-        },
+        }
         ];
 
     useEffect(() => {
-        api.get("/Recipe", {params : {PageNumber : 10}}).then(res => {
+        api.get("/Recipe", {params : {
+            PageNumber : 10,
+            OnlyTheirOwn:params.onlyTheirOwn,
+        }}).then(res => {
             setArray(res.data);
             console.log(res.data);
         });
@@ -93,6 +102,10 @@ const ListRecipe = () => {
         if(value === 4){
             setReplacementLevel("Hard")
         }
+    }
+
+    function onColumn(e){
+        console.log(e)
     }
 
     return (
@@ -233,6 +246,7 @@ const ListRecipe = () => {
                                     CaloriesMax : caloriesMax,
                                     ProteinsMin : proteinsMin,
                                     ProteinsMax : proteinsMax,
+                                    OnlyTheirOwn : params.onlyTheirOwn,
                                     FatsMin : fatsMin,
                                     FatsMax : fatsMax,
                                     CarbohydratesMin : carbohydratesMin,
@@ -277,7 +291,13 @@ const ListRecipe = () => {
             </div>       
         </div>
 
-        <Table dataSource={recipes} columns={columns.filter(x => x.hide !== true)} rowKey="recipeId" >
+        <Table dataSource={recipes}
+        onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {navigate(`/recipes/${record.recipeId}`)}, // click row
+            };
+          }}
+        onChange={onColumn} columns={columns.filter(x => x.hide !== true)} rowKey="recipeId" >
             
 
         </Table >

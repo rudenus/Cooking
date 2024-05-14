@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.RecipeLogic.Models.Create;
+using BusinessLogic.RecipeLogic.Models.Get;
 using BusinessLogic.RecipeLogic.Models.List;
 using Dal;
 using Dal.Entities;
@@ -24,9 +25,38 @@ namespace BusinessLogic.RecipeLogic
             this.filtrator = new Filtrator(context);
         }
 
-        public async Task Get()
+        public async Task<GetRecipeOutput> Get(Guid recipeId)
         {
+            var recipe = await context.Recipes
+                .Where(x => x.RecipeId == recipeId)
+                .Select(x => new GetRecipeOutput()
+                {
+                    Description = x.Description,
+                    Name = x.Name,
+                    Weight = x.Weight,
+                    Calories = x.Calories,
+                    Carbohydrates = x.Carbohydrates,
+                    Fats = x.Fats,
+                    IsModerated = x.IsModerated,
+                    Ingridients = x.Ingridients.Select(y => new GetRecipeOutputIngridient()
+                    {
+                        Calories = y.Product.Calories,
+                        Carbohydrates = y.Product.Carbohydrates,
+                        Fats = y.Product.Fats,
+                        Name = y.Product.Name,
+                        Proteins = y.Product.Proteins,
+                        Weight = y.Weight
+                    }),
+                    Operations = x.Operations.Select(y => new GetRecipeOutputOperation()
+                    {
+                        Description = y.Description,
+                        File = y.File.Content,
+                        Step = y.Step,
+                    })
+                })
+                .FirstOrDefaultAsync();
 
+            return recipe;
         }
 
         public async Task Update()
@@ -43,14 +73,14 @@ namespace BusinessLogic.RecipeLogic
         {
             Guid recipeId = Guid.NewGuid();
             
-            var recipe = await GetRecipe(input, recipeId);
+            var recipe = await CreateRecipeBody(input, recipeId);
 
             context.Add(recipe);
 
-            var listIngridients = GetIngridients(input.Ingridients, recipeId);
+            var listIngridients = CreateIngridients(input.Ingridients, recipeId);
             context.AddRange(listIngridients);
 
-            var listOperations = GetOperations(input.Operations, recipeId);
+            var listOperations = CreateOperations(input.Operations, recipeId);
             context.AddRange(listOperations);
 
             await context.SaveChangesAsync();
@@ -66,9 +96,11 @@ namespace BusinessLogic.RecipeLogic
                     Description = x.Description,
                     FatsPer100 = x.FatsPer100,
                     Name = x.Name,
+                    IsModerated = x.IsModerated,
                     ProteinsPer100 = x.FatsPer100,
                     Weight = x.Weight,
                     RecipeId = x.RecipeId,
+                    UserId = x.UserId,
                     Products = x.Ingridients.Select(x => new ProductListFilterModel
                     {
                         ProductId = x.ProductId,
@@ -92,7 +124,7 @@ namespace BusinessLogic.RecipeLogic
 
         }
 
-        private async Task<Recipe> GetRecipe(CreateRecipeInput input, Guid recipeId)
+        private async Task<Recipe> CreateRecipeBody(CreateRecipeInput input, Guid recipeId)
         {
             Recipe recipe = new Recipe()
             {
@@ -203,7 +235,7 @@ namespace BusinessLogic.RecipeLogic
             return listResult;
         }
 
-        private List<Ingridient> GetIngridients(IEnumerable<CreateRecipeInputIngridient> ingridients, Guid recipeId)
+        private List<Ingridient> CreateIngridients(IEnumerable<CreateRecipeInputIngridient> ingridients, Guid recipeId)
         {
             var listIngridients = new List<Ingridient>(ingridients.Count());
 
@@ -240,7 +272,7 @@ namespace BusinessLogic.RecipeLogic
             return listIngridients;
         }
 
-        public List<Operation> GetOperations(IEnumerable<CreateRecipeInputOperation> operations, Guid recipeId)
+        private List<Operation> CreateOperations(IEnumerable<CreateRecipeInputOperation> operations, Guid recipeId)
         {
             return operations.Select(x => new Operation()
             {

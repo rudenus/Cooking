@@ -18,11 +18,16 @@ namespace Cooking.Dto.Recipe.List
 
         public int? FatsMax { get; set; }
 
+        public bool? OnlyUnModerated { get; set; }
+
+        public bool? OnlyTheirOwn { get; set; }
+
         public int? ProteinsMin { get; set; }
 
         public int? ProteinsMax { get; set; }
 
         public int? PageNumber { get; set; }
+
         public int? PageSize { get; set; }
 
         public ReplacementLevel? ReplacementLevel { get; set; }

@@ -8,6 +8,8 @@ namespace BusinessLogic.RecipeLogic.Models.List
 
         public ReplacementLevel? ReplacementLevel { get; set; }
 
+        public Guid? UserId { get; set; }
+
         public int? CaloriesMin { get; set; }
 
         public int? CaloriesMax { get; set; }
@@ -19,6 +21,10 @@ namespace BusinessLogic.RecipeLogic.Models.List
         public int? FatsMin { get; set; }
 
         public int? FatsMax { get; set; }
+
+        public bool? OnlyUnModerated { get; set; }
+
+        public bool? OnlyTheirOwn { get; set; }
 
         public int? ProteinsMin { get; set; }
 

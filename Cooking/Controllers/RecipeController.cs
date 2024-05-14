@@ -54,6 +54,7 @@ namespace Cooking.Controllers
                 //в будущих проектах нужно разделять валидацию и нормализацию
                 var validRecipe = recipeValidator.Validate(new ValidatorRecipeInput()
                 {
+                    Weight = input.Weight,
                     Ingridients = input.Ingridients.Select(x => new ValidatorRecipeInputIngridient()
                     {
                         ExistingProductId = x.ExistingProductId,
@@ -63,13 +64,12 @@ namespace Cooking.Controllers
                             Fats = x.NewProduct.Fats,
                             Proteins = x.NewProduct.Proteins
                         } : null,
-                        Weight = x.Weight//to do провалидировать 0
+                        Weight = x.Weight
                     }),
 
                     Operations = input.Operations.Select(x => new ValidatorRecipeInputOperation()
                     {
                         Step = x.Step,
-                        //TimeInSeconds = x.TimeInSeconds,
                     })
                 });
 
@@ -106,15 +106,23 @@ namespace Cooking.Controllers
         }
 
         [HttpGet("{recipeId:guid}")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid recipeId)
         {
-            return View();
+            var recipe = await recipeLogic.Get(recipeId);
+
+            if (recipe == null)
+            {
+                return NotFound($"Рецепт с идентификатором {recipeId} не найден");
+            }
+
+            return Ok(recipe);
         }
 
         [HttpGet]
         public async Task<IActionResult> List(
             [FromQuery, BindRequired]ListForm input)
         {
+            var userId = this.GetNullableUserId();
             var listRecipe = await recipeLogic.List(new ListRecipeInput()
             {
                 CaloriesMax = input.CaloriesMax,
@@ -128,7 +136,11 @@ namespace Cooking.Controllers
                 Products = input.Products,
                 PageNumber = input.PageNumber ?? 0,
                 PageSize = input.PageSize ?? 20,
-                ReplacementLevel = input.ReplacementLevel
+                ReplacementLevel = input.ReplacementLevel,
+                UserId = userId,
+                OnlyUnModerated = input.OnlyUnModerated,
+                OnlyTheirOwn = input.OnlyTheirOwn,
+                
             });
 
             return Ok(listRecipe.Select(x => new ListResult()

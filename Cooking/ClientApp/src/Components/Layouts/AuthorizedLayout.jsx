@@ -15,21 +15,17 @@ const AuthorizedLayout = ({ children, logout }) => {
                     theme="dark"
                     mode="horizontal"
                 >
-                    <Menu.Item key="2">
+                    <Menu.Item key="1">
                         <span>Создать рецепт</span>
                         <Link to="/recipes/create" />
                     </Menu.Item>
-                    <Menu.Item key="3">
-                        <span>Авторизация</span>
-                        <Link to="/login" />
-                    </Menu.Item>
-                    <Menu.Item key="4">
+                    <Menu.Item key="2">
                         <span>Рецепты</span>
                         <Link to="/recipes" />
                     </Menu.Item>
-                    <Menu.Item key="5">
-                        <span>Регистрация</span>
-                        <Link to="/register" />
+                    <Menu.Item key="3">
+                        <span>Мои рецепты</span>
+                        <Link to="/recipes/owner" />
                     </Menu.Item>
                 </Menu>
             </Header>

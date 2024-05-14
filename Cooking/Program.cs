@@ -1,3 +1,4 @@
+using BusinessLogic.ModeratorLogic;
 using BusinessLogic.ProductLogic;
 using BusinessLogic.RecipeLogic;
 using BusinessLogic.UserLogic;
@@ -44,6 +45,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<Dal.Context>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddTransient<ModeratorLogic>();
 builder.Services.AddTransient<UserLogic>();
 builder.Services.AddTransient<RecipeLogic>();
 builder.Services.AddTransient<ProductLogic>();

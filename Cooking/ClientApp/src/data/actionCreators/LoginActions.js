@@ -2,11 +2,13 @@ import api from "../../api/api";
 import setAuthorizationToken from './../../utils/SetAuthorizationToken';
 import { SET_CURRENT_USER } from './Types';
 
-export function setCurrentUser(isAuthorized2) {
+export function setCurrentUser(isAuthorized, isModerator) {
+    console.log(isModerator)
     return {
         type: SET_CURRENT_USER,
         user : {
-            isAuthorized : isAuthorized2
+            isAuthorized : isAuthorized,
+            isModerator : isModerator
         }
     };
 }
@@ -24,13 +26,14 @@ export function logout(data) {
 export function login(data) {
     return (dispatch) => {
         return api.post("/account/token", data, {withCredentials: false}).then(res => {
-            const token = res.data;
+            
+            const token = res.data.token;
 
             localStorage.setItem('jwtToken', token);
 
             setAuthorizationToken(token);
 
-            dispatch(setCurrentUser(true));
+            dispatch(setCurrentUser(true, res.data.isModerator));
         });
     };;
 }

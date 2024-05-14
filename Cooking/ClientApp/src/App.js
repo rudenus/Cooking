@@ -4,11 +4,12 @@ import './App.css';
 import AuthorizedLayout from './Components/Layouts/AuthorizedLayout';
 import NonAuthorizedLayout from './Components/Layouts/NonAuthorizedLayout';
 import Login from './Components/Login/Login';
-import MainPage from './Components/MainPage/MainPage';
 import Register from './Components/Register/Register';
 import store from './data/Store';
 import ListRecipe from './Components/Recipe/ListRecipe/ListRecipe';
 import CreateRecipe from './Components/Recipe/CreateRecipe/CreateRecipe';
+import MyRecipes from './Components/Recipe/ListRecipe/MyRecipes/MyRecipes';
+import GetRecipe from './Components/Recipe/GetRecipe/GetRecipe';
 
 function App() {
   const isAuthorized = store.getState()?.AuthorizationReducer?.isAuthorized;
@@ -24,7 +25,9 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/recipes" element={<ListRecipe />} />
                   <Route path="/recipes/create" element={<CreateRecipe />} />
-                  <Route path="*" element={<MainPage />} />
+                  <Route path="/recipes/owner" element={<MyRecipes />} />
+                  <Route path="/recipes/:id" element={<GetRecipe />} />
+                  <Route path="*" element={<ListRecipe />} />
                 </Routes>
               </AuthorizedLayout>
               :
@@ -34,7 +37,9 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/recipes" element={<ListRecipe />} />
                   <Route path="/recipes/create" element={<CreateRecipe />} />
-                  <Route path="*" element={<MainPage />} />
+                  <Route path="/recipes/owner" element={<MyRecipes />} />
+                  <Route path="/recipes/:id" element={<GetRecipe />} />
+                  <Route path="*" element={<ListRecipe />} />
                 </Routes>
               </NonAuthorizedLayout>
           }

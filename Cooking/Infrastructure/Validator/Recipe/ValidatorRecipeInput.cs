@@ -5,6 +5,8 @@
         public IEnumerable<ValidatorRecipeInputOperation> Operations { get; set; }
 
         public IEnumerable<ValidatorRecipeInputIngridient> Ingridients { get; set; }
+
+        public int? Weight { get; set; }
     }
 
     public class ValidatorRecipeInputIngridient

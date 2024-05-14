@@ -11,6 +11,11 @@ namespace Cooking.Infrastructure.Validator.Recipe
                 throw new ArgumentException("Список ингридиентов не может быть пустым");
             }
 
+            if (input.Weight.HasValue && input.Weight.Value <=0)
+            {
+                throw new ArgumentException("Вес должен быть положительным");
+            }
+
             foreach(var ingridient in input.Ingridients)
             {
                 if(ingridient.ExistingProductId != null)

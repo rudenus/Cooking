@@ -85,10 +85,10 @@ namespace Cooking.Controllers
         public async Task<IActionResult> Token(
             [FromBody, BindRequired] LoginForm input)
         {
-            string token;
+            AuthenticateResult result;
             try
             {
-                token = await authenticator.GetToken(input.Login, input.Password);
+                result = await authenticator.Authenticate(input.Login, input.Password);
             }
 
             catch (AuthenticationException ex)
@@ -96,7 +96,11 @@ namespace Cooking.Controllers
                 return StatusCode(403, ex.Message);
             }
 
-            return Ok(token);
+            return Ok(new
+            {
+                IsModerator = result.Role == Dal.Enums.Role.Moderator,
+                Token = result.Token,
+            });
         }
 
         [HttpGet]

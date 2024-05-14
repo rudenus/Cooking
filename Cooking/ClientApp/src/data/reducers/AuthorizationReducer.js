@@ -2,7 +2,7 @@ import { SET_CURRENT_USER } from '../actionCreators/Types.js'
 import isEmpty from 'lodash/isEmpty';
 const InitialState = {
     isAuthorized: false,
-    isAdmin: false,
+    isModerator: false,
     user: {}
 }
 export default (state = InitialState, action = {}) => {
@@ -10,7 +10,7 @@ export default (state = InitialState, action = {}) => {
         case SET_CURRENT_USER:
             return {
                 isAuthorized: !isEmpty(action.user),
-                isAdmin: action.user?.role === "Administrator",
+                isModerator: action.isModerator,
                 user: action.user,
             };
         default:

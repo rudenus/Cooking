@@ -1,6 +1,8 @@
 ﻿using BusinessLogic.RecipeLogic.Models.List;
 using Dal;
+using Dal.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BusinessLogic.RecipeLogic
 {
@@ -21,6 +23,8 @@ namespace BusinessLogic.RecipeLogic
             list = await FiltrationWithReplacement(list, input);
 
             list = Pagination(list, input);
+
+            list = await ModeratorFiltration(list, input);
 
             return list;
         }
@@ -114,12 +118,71 @@ namespace BusinessLogic.RecipeLogic
             return list;
         }
 
+        private async Task<IQueryable<ListRecipeFilterModel>> ModeratorFiltration(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
+        {
+            if (!input.UserId.HasValue)
+            {
+                return list.Where(x => x.IsModerated == true);
+            }
+
+            var role = await GetUserRole(input.UserId);
+            if (!role.HasValue)
+            {
+                return list.Where(x => x.IsModerated == true);
+            }
+
+            if(role.Value == Role.Moderator)
+            {
+                if(input.OnlyUnModerated.HasValue && input.OnlyUnModerated.Value == true)
+                {
+                    list = list.Where(x => x.IsModerated == false);
+                }
+                else 
+                {
+                    //возвращаем весь список
+                }
+
+                if (input.OnlyTheirOwn.HasValue && input.OnlyTheirOwn.Value == true)
+                {
+                    list = list.Where(x => x.UserId == input.UserId.Value);
+                }
+            }
+
+            else
+            {
+                if (input.OnlyTheirOwn.HasValue && input.OnlyTheirOwn.Value == true)
+                {
+                    list = list.Where(x => x.UserId == input.UserId.Value);
+                }
+
+                else
+                {
+                    list = list.Where(x => x.IsModerated == true);
+                }
+            }
+
+            return list;
+        }
+
         private IQueryable<ListRecipeFilterModel> Pagination(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
         {
             list.Skip(input.PageNumber * input.PageSize);
             list.Take(input.PageSize);
 
             return list;
+        }
+
+        private async Task<Role?> GetUserRole(Guid? userId)
+        {
+            if (!userId.HasValue)
+            {
+                return null;
+            }
+
+            return await context.Users
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Role)
+                .FirstOrDefaultAsync();
         }
     }
 }
