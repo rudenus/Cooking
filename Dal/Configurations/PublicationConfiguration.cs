@@ -13,8 +13,8 @@ namespace Dal.Configurations
 
             builder.HasKey(x => x.PublicationId);
 
-            builder.HasNotNegativeCheckConstraint(x => x.CommentsNumber);
-            builder.HasNotNegativeCheckConstraint(x => x.LikesNumber);
+            builder.HasNotNegativeCheckConstraint(x => (int?)x.CommentsNumber);
+            builder.HasNotNegativeCheckConstraint(x => (int?)x.LikesNumber);
         }
     }
 }

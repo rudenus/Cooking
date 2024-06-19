@@ -19,16 +19,6 @@
                 throw new ArgumentException("Логин должен быть длиной от 5 до 50 символов и состоять из букв или цифр");
             }
 
-            if (string.IsNullOrEmpty(user.Name))
-            {
-                throw new ArgumentException("Имя пользователя не может быть пустым");
-            }
-
-            if (string.IsNullOrEmpty(user.Surname))
-            {
-                throw new ArgumentException("Фамилия пользователя не может быть пустой");
-            }
-
             if (!passwordValidator.TryParse(user.Password, out var password))
             {
                 throw new ArgumentException("Неправильный формат пароля");
@@ -48,10 +38,8 @@
             {
                 Email = email,
                 Login = user.Login,
-                Name = user.Name,
                 Password = password,
                 Phone = phone,
-                Surname = user.Surname,
             };
         }
     }

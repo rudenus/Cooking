@@ -3,7 +3,6 @@ import setAuthorizationToken from './../../utils/SetAuthorizationToken';
 import { SET_CURRENT_USER } from './Types';
 
 export function setCurrentUser(isAuthorized, isModerator) {
-    console.log(isModerator)
     return {
         type: SET_CURRENT_USER,
         user : {
@@ -14,12 +13,10 @@ export function setCurrentUser(isAuthorized, isModerator) {
 }
 export function logout(data) {
     return (dispatch) => {
-        return api.post("/api/Authentication/Logout", data).then(res => {
-            console.log(res);
-            setAuthorizationToken(false);
-            localStorage.removeItem('jwtToken');
-            dispatch(setCurrentUser({}));
-        });
+        console.log("inner")
+        setAuthorizationToken(false);
+        localStorage.removeItem('jwtToken');
+        dispatch(setCurrentUser(false, false));
     };;
 }
 

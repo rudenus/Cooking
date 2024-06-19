@@ -1,21 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Entities">
-    <Position X="3.365" Y="0.854" Height="0.49" Width="0.7" />
+    <Position X="2.766" Y="0.914" Height="0.49" Width="0.7" />
   </Comment>
   <Comment CommentText="Configurations">
-    <Position X="10.104" Y="0.896" Height="0.49" Width="1.45" />
+    <Position X="7.969" Y="0.968" Height="0.49" Width="1.45" />
   </Comment>
   <Comment CommentText="Extensions">
-    <Position X="15.281" Y="0.979" Height="0.49" Width="0.94" />
+    <Position X="12.25" Y="1" Height="0.49" Width="0.94" />
   </Comment>
-  <Class Name="Dal.Entities.Comment" Collapsed="true">
-    <Position X="0.5" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAACABAAgAAEAAAAAgAAAAAEAAAAA=</HashCode>
-      <FileName>Entities\Comment.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Dal.Entities.File" Collapsed="true">
     <Position X="2.25" Y="2" Width="1.5" />
     <TypeIdentifier>
@@ -30,17 +23,10 @@
       <FileName>Entities\Ingridient.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Dal.Entities.Like" Collapsed="true">
-    <Position X="5.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>Entities\Like.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Dal.Entities.Operation" Collapsed="true">
-    <Position X="0.5" Y="3" Width="1.5" />
+    <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAgAEAAAAAAAAAAAAAEAACAIAAACAIAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAgAAAAAAAAAAAAAAAEAACAIAAACAIAAAA=</HashCode>
       <FileName>Entities\Operation.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -51,44 +37,29 @@
       <FileName>Entities\Product.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Dal.Entities.Publication" Collapsed="true">
-    <Position X="4" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAABAAAAAAEAAACABAAgAAFAEAAACAAAACAIAIAA=</HashCode>
-      <FileName>Entities\Publication.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Dal.Entities.Recipe" Collapsed="true">
-    <Position X="5.75" Y="3" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAABAAACAAAgAAAAAAACABwAgCAEABEAAAgACsIEAAA=</HashCode>
       <FileName>Entities\Recipe.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Dal.Entities.ReplacementProduct" Collapsed="true">
-    <Position X="0.5" Y="4" Width="1.5" />
+    <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAgAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAgAAQAAE=</HashCode>
       <FileName>Entities\ReplacementProduct.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Dal.Entities.User" Collapsed="true">
-    <Position X="2.25" Y="4" Width="1.5" />
+    <Position X="4" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAACAAACAAAIAAEAAAIAwABAAAAAAAAAAQIEAAAAA=</HashCode>
+      <HashCode>AACAAAAAACAAAAAAEAAAIAgAAAAAAAAAAAAQIEAAAAA=</HashCode>
       <FileName>Entities\User.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Dal.Configurations.CommentConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Configurations\CommentConfiguration.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Dal.Configurations.FileConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.5" Y="2" Width="1.5" />
+    <Position X="8" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\FileConfiguration.cs</FileName>
@@ -96,23 +67,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dal.Configurations.IngridientConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.25" Y="2" Width="1.5" />
+    <Position X="9.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\IngridientConfiguration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Dal.Configurations.LikeConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Configurations\LikeConfiguration.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Dal.Configurations.OperationConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="3" Width="1.5" />
+    <Position X="6.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\OperationConfiguration.cs</FileName>
@@ -120,23 +83,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dal.Configurations.ProductConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.5" Y="3" Width="1.5" />
+    <Position X="8" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\ProductConfiguration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Dal.Configurations.PublicationConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.25" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Configurations\PublicationConfiguration.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Dal.Configurations.RecipeConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13" Y="3" Width="1.5" />
+    <Position X="6.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\RecipeConfiguration.cs</FileName>
@@ -144,7 +99,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dal.Configurations.ReplacementProductConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="4" Width="1.5" />
+    <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\ReplacementProductConfiguration.cs</FileName>
@@ -152,7 +107,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dal.Configurations.UserConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.5" Y="4" Width="1.5" />
+    <Position X="6.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configurations\UserConfiguration.cs</FileName>
@@ -160,14 +115,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Dal.EfExtensions.EntityBuilderExtension">
-    <Position X="15" Y="2" Width="1.5" />
+    <Position X="12" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAACAAAgAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>EfExtensions\EntityBuilderExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Dal.EfExtensions.PropertyBuilderExtension">
-    <Position X="15" Y="4" Width="1.5" />
+    <Position X="12" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EfExtensions\PropertyBuilderExtension.cs</FileName>

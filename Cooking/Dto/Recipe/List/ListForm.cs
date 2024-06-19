@@ -18,6 +18,8 @@ namespace Cooking.Dto.Recipe.List
 
         public int? FatsMax { get; set; }
 
+        public string? Name { get; set; }
+
         public bool? OnlyUnModerated { get; set; }
 
         public bool? OnlyTheirOwn { get; set; }

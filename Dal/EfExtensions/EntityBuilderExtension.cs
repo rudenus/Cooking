@@ -50,5 +50,14 @@ namespace Dal.EfExtensions
 
             entityTypeBuilder.ToTable(x => x.HasCheckConstraint($"CK_{tableName}_{columnName}_Is_Positive", $"\"{columnName}\" >= 0"));
         }
+
+        public static void HasNotNegativeCheckConstraint<TEntity>(this EntityTypeBuilder<TEntity> entityTypeBuilder, Expression<Func<TEntity, int?>> property)
+            where TEntity : class
+        {
+            string tableName = entityTypeBuilder.Metadata.GetTableName();
+            string columnName = entityTypeBuilder.Property(property).Metadata.GetColumnName();
+
+            entityTypeBuilder.ToTable(x => x.HasCheckConstraint($"CK_{tableName}_{columnName}_Is_Positive", $"\"{columnName}\" >= 0"));
+        }
     }
 }

@@ -50,6 +50,7 @@ const CreateRecipe = () => {
     const [proteinsSum, setProteinsSum] = useState(0);
     const [fatsSum, setFatsSum] = useState(0);
     const [carbohydratesSum, setCarbohydratesSum] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -65,7 +66,7 @@ const CreateRecipe = () => {
     const [stepsCount, setStepsCount] = useState(1);
     const [stepNodes, setStepNodes] = useState([]);
     useEffect(() => {
-        api.get("/Product").then(res => {
+        api.get("/Product/list").then(res => {
             let list = res.data.map(x => ({
               value:x.productId,
               label:x.name,
@@ -152,7 +153,7 @@ const CreateRecipe = () => {
 
     api.post("/Recipe", formData).then(res => {
       navigate("/recipes")
-  });
+  }).catch((error) => { setErrorMessage(error.response.data) });
   }
 
   //https://stackoverflow.com/questions/67231362/why-iformfile-is-null-in-nested-object
@@ -274,7 +275,7 @@ const CreateRecipe = () => {
             <span style={{margin:'30px'}}>Введите название рецепта: </span><input type='text' value={name} id='input-name' onInput={nameChangeHandler} style={{padding:'3px 10px', minWidth:'300px'}}></input>
           </div>
           <div style={{fontSize:'18px', textAlign:'left', margin:'40px 10px 10px 130px'}}>Введите текстовое описание рецепта:</div>
-          <Editor value={description}  onTextChange={(e) => descriptionChangeHandler(e.htmlValue)} headerTemplate={header} className='input-description'  style={{ minHeight: '220px' }}/>
+          <Editor value={description}  onTextChange={(e) => descriptionChangeHandler(e.htmlValue)} headerTemplate={header} className='input-description'  style={{ minHeight: '220px', fontSize:'20px' }}/>
           
           <div style={{margin:'30px', fontSize:'18px'}}>Укажите все необходимые ингридиенты</div>
           <table id="list-ingridients"  style={{minHeight:'100px', fontSize:'18px'}}>
@@ -308,7 +309,12 @@ const CreateRecipe = () => {
           <div>
             <Button id="button-add-new-step" type="primary" onClick={addStepClick} style={{textAlign:'left', margin:'40px 10px 10px 130px', display:'inline'}}>Добавить шаг</Button>
           </div>
-          <Button type='primary' id="button-create-recipe" onClick={createRecipe}>Создать рецепт</Button>
+          <div>
+            <Button type='primary' id="button-create-recipe" style={{textAlign:'left', margin:'10px 10px 10px 130px', display:'inline'}} onClick={createRecipe}>Создать рецепт</Button>
+          </div>
+          <div>
+            {errorMessage && <div className="error" key={22} style={{ color: "red", textAlign:'center', margin:'10px 10px 10px 130px'}}> {errorMessage} </div>}
+          </div>
         </div>
         );
 }

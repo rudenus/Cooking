@@ -15,9 +15,9 @@ namespace Dal.Configurations
 
             builder.HasIndex(x => x.RecipeId);
 
-            builder.HasNotNegativeCheckConstraint(x => x.Step);
+            builder.HasNotNegativeCheckConstraint(x => (int?)x.Step);
 
-            builder.HasNotNegativeCheckConstraint(x => x.TimeInSeconds);
+            builder.HasNotNegativeCheckConstraint(x => (int?)x.TimeInSeconds);
         }
     }
 }

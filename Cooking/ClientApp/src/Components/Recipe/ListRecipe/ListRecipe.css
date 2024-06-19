@@ -11,3 +11,7 @@
     width:1200px;
     text-align: left;
 }
+
+.ant-pagination-options{
+    display: none!important;
+}

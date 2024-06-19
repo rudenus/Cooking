@@ -12,13 +12,13 @@ const NonAuthorizedLayout = ({ children }) => {
                     theme="dark"
                     mode="horizontal"
                 >
-                    <Menu.Item key="3">
-                        <span>Авторизация</span>
-                        <Link to="/login" />
-                    </Menu.Item>
                     <Menu.Item key="4">
                         <span>Рецепты</span>
                         <Link to="/recipes" />
+                    </Menu.Item>
+                    <Menu.Item key="3">
+                        <span>Авторизация</span>
+                        <Link to="/login" />
                     </Menu.Item>
                     <Menu.Item key="5">
                         <span>Регистрация</span>

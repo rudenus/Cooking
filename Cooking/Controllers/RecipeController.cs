@@ -6,6 +6,7 @@ using Cooking.Dto.Recipe.List;
 using Cooking.Infrastructure;
 using Cooking.Infrastructure.LinqExtensions;
 using Cooking.Infrastructure.Validator.Recipe;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Authentication;
@@ -43,7 +44,6 @@ namespace Cooking.Controllers
             {
                 Description = input.Description,
                 Name = input.Name,
-                //File = input.File != null ? await getBytes(input.File) : null,
                 ServingsNumber = input.ServingsNumber,
                 UserId = userId,
                 Weight = input.Weight,
@@ -108,7 +108,8 @@ namespace Cooking.Controllers
         [HttpGet("{recipeId:guid}")]
         public async Task<IActionResult> Get(Guid recipeId)
         {
-            var recipe = await recipeLogic.Get(recipeId);
+            var userId = this.GetNullableUserId();
+            var recipe = await recipeLogic.Get(recipeId, userId);
 
             if (recipe == null)
             {
@@ -131,6 +132,7 @@ namespace Cooking.Controllers
                 CarbohydratesMin = input.CarbohydratesMin,
                 FatsMax = input.FatsMax,
                 FatsMin = input.FatsMin,
+                Name = input.Name,
                 ProteinsMax = input.ProteinsMax,
                 ProteinsMin = input.ProteinsMin,
                 Products = input.Products,
@@ -149,6 +151,7 @@ namespace Cooking.Controllers
                 CarbohydratesPer100 = x.CarbohydratesPer100,
                 Description = x.Description,
                 FatsPer100 = x.FatsPer100,
+                IsTest = x.IsTest,
                 Products = x.Products,
                 RecipeId = x.RecipeId,
                 Name = x.Name,
@@ -163,9 +166,12 @@ namespace Cooking.Controllers
         }
 
         [HttpDelete("{recipeId:guid}")]
-        public async Task<IActionResult> Delete()
+        [Authorize]
+        public async Task<IActionResult> Delete(Guid recipeId)
         {
-            return View();
+            var userId = this.GetUserId();
+            await recipeLogic.Delete(recipeId, userId);
+            return Ok();
         }
 
         private static async Task<byte[]> getBytes(IFormFile formFile)

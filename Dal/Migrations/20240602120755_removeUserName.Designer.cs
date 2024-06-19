@@ -3,6 +3,7 @@ using System;
 using Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dal.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240602120755_removeUserName")]
+    partial class removeUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,7 +91,7 @@ namespace Dal.Migrations
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("Weight")
+                    b.Property<int>("Weight")
                         .HasColumnType("integer");
 
                     b.HasKey("IngridientId");
@@ -156,26 +159,23 @@ namespace Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("Calories")
+                    b.Property<int>("Calories")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Carbohydrates")
+                    b.Property<int>("Carbohydrates")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Fats")
+                    b.Property<int>("Fats")
                         .HasColumnType("integer");
 
                     b.Property<bool>("IsModerated")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool?>("IsTest")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Proteins")
+                    b.Property<int>("Proteins")
                         .HasColumnType("integer");
 
                     b.HasKey("ProductId");
@@ -246,29 +246,30 @@ namespace Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("Calories")
+                    b.Property<int>("Calories")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("CaloriesPer100")
+                    b.Property<int>("CaloriesPer100")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("integer")
                         .HasComputedColumnSql("\"Calories\" * 100 /\"Weight\"", true);
 
-                    b.Property<int?>("Carbohydrates")
+                    b.Property<int>("Carbohydrates")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("CarbohydratesPer100")
+                    b.Property<int>("CarbohydratesPer100")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("integer")
                         .HasComputedColumnSql("\"Carbohydrates\" * 100 /\"Weight\"", true);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Fats")
+                    b.Property<int>("Fats")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("FatsPer100")
+                    b.Property<int>("FatsPer100")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("integer")
                         .HasComputedColumnSql("\"Fats\" * 100 /\"Weight\"", true);
@@ -279,28 +280,25 @@ namespace Dal.Migrations
                     b.Property<bool>("IsModerated")
                         .HasColumnType("boolean");
 
-                    b.Property<bool?>("IsTest")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Proteins")
+                    b.Property<int>("Proteins")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProteinsPer100")
+                    b.Property<int>("ProteinsPer100")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("integer")
                         .HasComputedColumnSql("\"Proteins\" * 100 /\"Weight\"", true);
 
-                    b.Property<int?>("ServingsNumber")
+                    b.Property<int>("ServingsNumber")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("Weight")
+                    b.Property<int>("Weight")
                         .HasColumnType("integer");
 
                     b.HasKey("RecipeId");

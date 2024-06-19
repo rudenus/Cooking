@@ -20,37 +20,26 @@ namespace BusinessLogic.UserLogic
                 .Select(x => new
                 {
                     x.UserId,
-                    x.Name,
                     x.Role,
                 })
                 .FirstOrDefault(x => x.UserId == userId);
 
             return new GetUserOutput()
             {
-                Name = user.Name,
                 Role = user.Role.ToString(),
             };
         }
         public async Task Create(CreateUserInput user)
         {
-            string fullname = user.Name + " " + user.Surname;
-            if (!string.IsNullOrEmpty(user.Patronymic))
-            {
-                fullname += " " + user.Patronymic;
-            }
 
             var entity = new User()
             {
                 UserId = Guid.NewGuid(),
                 Email = user.Email,
-                FullName = fullname,
                 Login = user.Login,
-                Name = user.Name,
                 PasswordHash = MD5Hash(user.Password),
-                Patronymic = user.Patronymic,
                 Phone = user.Phone,
                 Role = Dal.Enums.Role.Default,
-                Surname = user.Surname,
             };
 
             context.Users.Add(entity);

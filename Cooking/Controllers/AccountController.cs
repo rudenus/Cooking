@@ -42,18 +42,14 @@ namespace Cooking.Controllers
                 {
                     Email = input.Email,
                     Login = input.Login,
-                    Name = input.Name,
                     Password = input.Password,
                     Phone = input.Phone,
-                    Surname = input.Surname,
                 });
 
                 user.Email = validUser.Email;
                 user.Login = validUser.Login;
-                user.Name = validUser.Name;
                 user.Password = validUser.Password;
                 user.Phone = validUser.Phone;
-                user.Surname = validUser.Surname;
             }
 
             catch (ArgumentException ex)

@@ -11,8 +11,10 @@ const GetRecipe = () => {
   let navigate = useNavigate();
     const { id } = useParams();
     const isModerator = store.getState()?.AuthorizationReducer?.user?.isModerator;
+    
+    const [isOwner, setIsOwner] = useState(false);
 
-    const [isModerated, setIsModerated] = useState(true);
+    const [showRemoveButton, setshowRemoveButton] = useState(false);
     const [showApproveButton, setshowApproveButton] = useState(false);
 
     const [weightSum, setWeightSum] = useState(0);
@@ -42,8 +44,8 @@ const GetRecipe = () => {
             if(rendered === true){
                 return;
             }
-            setIsModerated(res.data.isModerated)
-            
+            setIsOwner(res.data.isOwner)
+
             setDescription(res.data.description);
             setName(res.data.name);
             setWeightSum(res.data.weight)
@@ -64,6 +66,8 @@ const GetRecipe = () => {
             console.log(res.data.isModerated);
             console.log(isModerator)
             setshowApproveButton(isModerator && !res.data.isModerated)
+
+            setshowRemoveButton(isModerator || res.data.isOwner)
             rendered = true;
         });
     }, []);
@@ -102,7 +106,7 @@ const GetRecipe = () => {
                     <tbody>
                         <tr>
                             <td>
-                                <Editor value={step.description} textAlign='center' showHeader={false} readOnly={true} style={{ height: '350px', width: '700px', border:'0px', textAlign:'center'}} className='step-description'/>
+                                <Editor value={step.description} textAlign='center' showHeader={false} readOnly={true} style={{ height: '350px', width: '700px', textAlign:'center', fontSize:'20px'}} className='step-description'/>
                             </td>
                             <td valign='top' textAlign='center' style={{valign:'top', textAlign:'center', minWidth:'600px', marginTop:'40px'}}>
                                 <img alt="preview image" src={src} style={{textAlign:'left', maxWidth:'700px', maxHeight:'450px', margin:'30px auto 0 auto'}} className='preview-image'/>
@@ -118,14 +122,9 @@ const GetRecipe = () => {
     return (
         <div className="app">
           <div className='input-recipe-name'>
-          <h2 type='text' id='input-name' style={{margin:'30px auto 40px auto', textAlign:'center' }}>{name}</h2>
+          <h2 type='text' id='input-name' style={{margin:'30px auto 40px auto', textAlign:'center', fontSize:'20px' }}>{name}</h2>
           </div>
-
-          {showApproveButton && <Button onClick={(e)=>{
-            api.post(`/moderator/approve-recipe/${id}`)
-          }}  type="primary" >Одобрить</Button>}
-
-          <Editor value={description} showHeader={false} className='input-description' readOnly style={{ minHeight: '220px' }}/>
+          <Editor value={description} showHeader={false} className='input-description' readOnly style={{ minHeight: '220px', fontSize:'20px' }}/>
           
           <table id="list-ingridients"  style={{minHeight:'100px', fontSize:'18px'}}>
             <tbody >
@@ -148,9 +147,18 @@ const GetRecipe = () => {
               </tr>
             </tbody>
           </table>
-            <div id="list-steps">
+            <div style={{marginTop:'40px'}} id="list-steps">
               {stepNodes}
             </div>
+            
+          {showApproveButton && <Button onClick={(e)=>{
+            api.post(`/moderator/approve-recipe/${id}`).then((res) => {navigate('/recipes')})
+          }}  type="primary" >Одобрить</Button>}
+
+          {showRemoveButton && <Button onClick={(e)=>{
+            console.log("test")
+            api.delete(`/recipe/${id}`).then((res) => {navigate('/recipes')})
+          }}  type="primary" >Удалить</Button>}
         </div>
         );
 }

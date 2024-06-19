@@ -12,14 +12,14 @@ import MyRecipes from './Components/Recipe/ListRecipe/MyRecipes/MyRecipes';
 import GetRecipe from './Components/Recipe/GetRecipe/GetRecipe';
 
 function App() {
-  const isAuthorized = store.getState()?.AuthorizationReducer?.isAuthorized;
+  let isAuthorized = store.getState()?.AuthorizationReducer?.isAuthorized;
   return (
     <Provider store={store}>
       <div className="App">
         <Router>
           {
             isAuthorized ?
-              <AuthorizedLayout>
+              <AuthorizedLayout logoutCallback={() => {isAuthorized = false}}>
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />

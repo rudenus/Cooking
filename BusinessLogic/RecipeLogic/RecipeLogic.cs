@@ -3,6 +3,7 @@ using BusinessLogic.RecipeLogic.Models.Get;
 using BusinessLogic.RecipeLogic.Models.List;
 using Dal;
 using Dal.Entities;
+using Dal.Enums;
 using Dal.Migrations;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,10 +26,11 @@ namespace BusinessLogic.RecipeLogic
             this.filtrator = new Filtrator(context);
         }
 
-        public async Task<GetRecipeOutput> Get(Guid recipeId)
+        public async Task<GetRecipeOutput> Get(Guid recipeId, Guid? userId)
         {
             var recipe = await context.Recipes
                 .Where(x => x.RecipeId == recipeId)
+                .Where(x => x.IsTest != true)
                 .Select(x => new GetRecipeOutput()
                 {
                     Description = x.Description,
@@ -36,8 +38,10 @@ namespace BusinessLogic.RecipeLogic
                     Weight = x.Weight,
                     Calories = x.Calories,
                     Carbohydrates = x.Carbohydrates,
+                    Proteins = x.Proteins,
                     Fats = x.Fats,
                     IsModerated = x.IsModerated,
+                    IsOwner = userId.HasValue ? userId.Value == x.UserId : false,
                     Ingridients = x.Ingridients.Select(y => new GetRecipeOutputIngridient()
                     {
                         Calories = y.Product.Calories,
@@ -46,27 +50,42 @@ namespace BusinessLogic.RecipeLogic
                         Name = y.Product.Name,
                         Proteins = y.Product.Proteins,
                         Weight = y.Weight
-                    }),
+                    }).OrderBy(x => x.Name).AsEnumerable(),
                     Operations = x.Operations.Select(y => new GetRecipeOutputOperation()
                     {
                         Description = y.Description,
                         File = y.File.Content,
                         Step = y.Step,
-                    })
+                    }).OrderBy(x => x.Step).AsEnumerable()
                 })
                 .FirstOrDefaultAsync();
 
             return recipe;
         }
 
-        public async Task Update()
+        public async Task Delete(Guid recipeId, Guid userId)
         {
+            Role? role = await context.Users
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Role)
+                .FirstOrDefaultAsync();
 
-        }
+            if (!role.HasValue)
+            {
+                return;
+            }
 
-        public async Task Delete()
-        {
+            var recipe = await context.Recipes
+                .FirstOrDefaultAsync(x => x.RecipeId == recipeId);
 
+            if(recipe != null)
+            {
+                if(recipe.UserId == userId || role == Role.Moderator)
+                {
+                    context.Recipes.Remove(recipe);
+                    await context.SaveChangesAsync();
+                }
+            }
         }
 
         public async Task Create(CreateRecipeInput input)
@@ -91,13 +110,14 @@ namespace BusinessLogic.RecipeLogic
             var list = context.Recipes
                 .Select(x => new ListRecipeFilterModel
                 {
-                    CaloriesPer100 = x.CaloriesPer100,
-                    CarbohydratesPer100 = x.CarbohydratesPer100,
+                    CaloriesPer100 = x.Calories,
+                    CarbohydratesPer100 = x.Carbohydrates,
                     Description = x.Description,
-                    FatsPer100 = x.FatsPer100,
+                    FatsPer100 = x.Fats,
                     Name = x.Name,
                     IsModerated = x.IsModerated,
-                    ProteinsPer100 = x.FatsPer100,
+                    IsTest = x.IsTest,
+                    ProteinsPer100 = x.Proteins,
                     Weight = x.Weight,
                     RecipeId = x.RecipeId,
                     UserId = x.UserId,
@@ -116,7 +136,8 @@ namespace BusinessLogic.RecipeLogic
                 CarbohydratesPer100 = x.CarbohydratesPer100,
                 Description = x.Description,
                 FatsPer100 = x.FatsPer100,
-                Products = string.Join(", ", x.Products.Select(x => x.ProductName)),
+                IsTest = x.IsTest,
+                Products = string.Join(", ", x.Products.Select(x => x.ProductName).Take(5)),
                 Name = x.Name,
                 ProteinsPer100 = x.ProteinsPer100,
                 RecipeId = x.RecipeId,
@@ -204,9 +225,9 @@ namespace BusinessLogic.RecipeLogic
                     Product = new CreateRecipeInputProduct()
                     {
                         Calories = x.Calories,
-                        Carbohydrates = x.Carbohydrates,
-                        Fats = x.Fats,
-                        Proteins = x.Proteins,
+                        Carbohydrates = x.Carbohydrates.HasValue ? x.Carbohydrates.Value : 0,
+                        Fats = x.Fats.HasValue ? x.Fats.Value : 0,
+                        Proteins = x.Proteins.HasValue ? x.Proteins.Value : 0,
                     }
                 })
                 .ToDictionaryAsync(x => x.ExistingProductId!.Value, y => y.Product);

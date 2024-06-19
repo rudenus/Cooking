@@ -13,7 +13,7 @@ namespace Dal.Configurations
 
             builder.HasKey(x => x.IngridientId);
 
-            builder.HasNotNegativeCheckConstraint(x => x.Weight);
+            builder.HasNotNegativeCheckConstraint(x => (int?)x.Weight);
         }
     }
 }

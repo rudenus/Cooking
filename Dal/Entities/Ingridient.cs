@@ -8,7 +8,7 @@
 
         public Guid RecipeId { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         public Product Product { get; set; }
 

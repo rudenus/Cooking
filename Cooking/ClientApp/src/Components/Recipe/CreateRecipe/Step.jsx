@@ -87,7 +87,7 @@ const Step = ({steps, stepId, updateStepInParentState}) => {
                     <tbody>
                         <tr>
                             <td>
-                                <Editor value={description}  onTextChange={(e) => descriptionChangeHandler(e.htmlValue)} headerTemplate={header} style={{ height: '350px', width: '700px'}} className='step-description'/>
+                                <Editor value={description}  onTextChange={(e) => descriptionChangeHandler(e.htmlValue)} headerTemplate={header} style={{ height: '350px', width: '700px', fontSize:'20px'}} className='step-description'/>
                             </td>
                             <td valign='top' textAlign='center' style={{valign:'top', textAlign:'center', minWidth:'600px', marginTop:'40px'}}>
                                 <FileUpload mode="basic" chooseLabel='Добавить файл' onClear={onClear} onSelect={onSelect}  name="demo[]" accept="image/*" maxFileSize={1000000} style={{fontSize:'16px', margin:'0 auto', maxHeight:'100px'}}/>

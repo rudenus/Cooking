@@ -31,6 +31,10 @@ namespace BusinessLogic.RecipeLogic
 
         private IQueryable<ListRecipeFilterModel> BaseFiltration(IQueryable<ListRecipeFilterModel> list, ListRecipeInput input)
         {
+            if (!string.IsNullOrEmpty(input.Name))
+            {
+                list = list.Where(x => EF.Functions.ILike(x.Name, "%" + input.Name + "%"));
+            }
 
             if (input.CaloriesMin.HasValue)
             {
@@ -128,7 +132,9 @@ namespace BusinessLogic.RecipeLogic
             var role = await GetUserRole(input.UserId);
             if (!role.HasValue)
             {
-                return list.Where(x => x.IsModerated == true);
+                return list
+                    .Where(x => x.IsModerated == true)
+                    .Where(x => x.IsTest != true);
             }
 
             if(role.Value == Role.Moderator)

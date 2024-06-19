@@ -11,22 +11,46 @@ namespace BusinessLogic.ProductLogic
             this.context = context;
         }
 
-        public async Task<ListProductOutput[]> List()
+        public async Task<ListProductOutput[]> List(bool onlyModerated)
         {
-            var list = await context.Products
-                .Where(x => x.IsModerated == true)
-                .Select(x => new ListProductOutput()
-                {
-                    ProductId = x.ProductId,
-                    Calories = x.Calories,
-                    Carbohydrates = x.Carbohydrates,
-                    Fats = x.Fats,
-                    Name = x.Name,
-                    Proteins = x.Proteins,
-                })
-                .ToArrayAsync();
+            if (onlyModerated)
+            {
 
-            return list;
+                var list = await context.Products
+                    .Where(x => x.IsModerated == true)
+                    .Where(x => x.IsTest != true)
+                    .Select(x => new ListProductOutput()
+                    {
+                        ProductId = x.ProductId,
+                        Calories = x.Calories,
+                        Carbohydrates = x.Carbohydrates,
+                        Fats = x.Fats,
+                        Name = x.Name,
+                        Proteins = x.Proteins,
+                    })
+                    .OrderBy(x => x.Name)
+                    .ToArrayAsync();
+
+                return list;
+            }
+
+            else
+            {
+                var list = await context.Products
+                    .Select(x => new ListProductOutput()
+                    {
+                        ProductId = x.ProductId,
+                        Calories = x.Calories,
+                        Carbohydrates = x.Carbohydrates,
+                        Fats = x.Fats,
+                        Name = x.Name,
+                        Proteins = x.Proteins,
+                    })
+                    .OrderBy(x => x.Name)
+                    .ToArrayAsync();
+
+                return list;
+            }
         }
     }
 }
